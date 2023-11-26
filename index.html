@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página web de Computrabajo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top bg-body-secondary">
+        <div class="container">
+            <img src="assets/logo-zonajobs.ddca20fb.svg" alt="">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse  d-lg-flex justify-content-lg-end" id="navbarNav">
+                <ul class="navbar-nav d-flex gap-lg-3 px-lg-4 p-1">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#" style="color: blue;">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-block d-lg-none d-md-none " href="#"> Crear cuenta </a>
+                        <button class="btn btn-outline-primary d-none d-lg-block d-md-block" id="CrearCuenta"> Crear
+                            cuenta </button>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-block d-lg-none d-md-none " href="#"> Ingresar </a>
+                        <button class="btn btn-primary d-none d-lg-block d-md-block" id="Ingresar"> Ingresar </button>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid busquedas-container">
+        <div class="search">
+            <h4>Empleá tu pasión</h4>
+            <input type="text" id="input-palabra-clave" placeholder="Puesto, empresa o palabra clave">
+            <input type="text" id="input-lugar" placeholder="Lugar de trabajo">
+
+        </div>
+    </div>
+
+    <div class="banner-1 container-fluid d-flex justify-content-center align-items-center  gap-5 m-5 ">
+
+        <div class="img-container">
+            <img src="assets/remax-2.webp" alt="" class="img-fluid">
+        </div>
+
+        <div class="img-container">
+            <img src="assets/ey-2.webp" alt="" class="img-fluid">
+        </div>
+
+        <div class="img-container">
+            <img src="assets/embajada-eeuu-2.webp" alt="" class="img-fluid">
+        </div>
+
+        <div class="img-container">
+            <img src="assets/pwc-2.webp" alt="" class="img-fluid">
+        </div>
+
+        <div class="img-container">
+            <img src="assets/beiersdorf-2.webp" alt="" class="img-fluid">
+        </div>
+
+        <div class="img-container">
+            <img src="assets/accenture-2.webp" alt="" class="img-fluid">
+        </div>
+    </div>
+
+    <div class="container-fluid d-flex justify-content-center align-content-center">
+        <div class="row min-vh-100" style="width: 80vw;">
+            <div class="col-lg-3 col " id="filtros-col">
+
+                <div class="area-filter">
+                    <ul class="p-0">
+                        <strong class="ms-1">Área</strong>
+                        <hr>
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <span>Comercial, Ventas y Negocios</span>
+                                <span class="ms-2 opacity-75">(6801)</span>
+                            </div>
+
+
+                        </li>
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <span>Administracion, Contabilidad y Finanzas</span>
+                                <span class="ms-2 opacity-75">(2168)</span>
+                            </div>
+
+                        </li>
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <span>Producción y Manufactura</span>
+                                <span class="ms-2 opacity-75">(1771)</span>
+                            </div>
+
+                        </li>
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <span>Abastecimiento y Logistica</span>
+                                <span class="ms-2 opacity-75">(2742)</span>
+                            </div>
+
+                        </li>
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <span>Atención al Cliente, Call Center y Telemarketing</span>
+                                <span class="ms-2 opacity-75">(341)</span>
+                            </div>
+
+                        </li>
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <span>Gastronomía y Turismo</span>
+                                <span class="ms-2 opacity-75">(523)</span>
+                            </div>
+
+                        </li>
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <span>Recursos Humanos y Capacitación</span>
+                                <span class="ms-2 opacity-75">(1220)</span>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="area-filter">
+                    <ul class="p-0">
+                        <strong class="ms-1">Modalidad de Trabajo</strong>
+                        <hr>
+                        <li>
+                            <div class="d-flex justify-content-between" id="presencialGet">
+                                <span>Presencial</span>
+                                <span class="ms-2 opacity-75">(820)</span>
+                                <!-- Ajusta la clase y el espacio según tu diseño -->
+                            </div>
+                        </li>
+                        <li>
+                            <div class="d-flex justify-content-between" id="hibridoGet">
+                                <span>Híbrido</span>
+                                <span class="ms-2 opacity-75">(150)</span>
+                                <!-- Ajusta la clase y el espacio según tu diseño -->
+                            </div>
+                        </li>
+                        <li>
+                            <div class="d-flex justify-content-between" id="remotoGet">
+                                <span>Remoto</span>
+                                <span class="ms-2 opacity-75">(340)</span>
+                                <!-- Ajusta la clase y el espacio según tu diseño -->
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </div>
+
+                <div class="area-filter">
+                    <ul class="p-0">
+                        <strong class="ms-1">Fecha de publicación</strong>
+                        <hr>
+
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <span> Hoy </span>
+                                <span class="ms-2 opacity-75">(820)</span>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <span> 48 hs </span>
+                                <span class="ms-2 opacity-75">(150)</span>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <span> 72 hs </span>
+                                <span class="ms-2 opacity-75">(150)</span>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <span> Ultima semana </span>
+                                <span class="ms-2 opacity-75">(150)</span>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <span> Ultimos 15 dias </span>
+                                <span class="ms-2 opacity-75">(150)</span>
+                            </div>
+                        </li>
+
+
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <span> Ultimo Mes </span>
+                                <span class="ms-2 opacity-75">(150)</span>
+                            </div>
+                        </li>
+
+
+
+                    </ul>
+                </div>
+
+                <div class="area-filter">
+                    <ul class="p-0">
+                        <strong class="ms-1"> Tipo de Jornada </strong>
+                        <hr>
+
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <span> Jornada completa </span>
+                                <span class="ms-2 opacity-75">(820)</span>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <span> Jornada Reducida </span>
+                                <span class="ms-2 opacity-75">(820)</span>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <span> Jornada Partida </span>
+                                <span class="ms-2 opacity-75">(820)</span>
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="col" id="col-get-1">
+
+            </div>
+
+            <div class="col" id="col-get-2">
+
+
+                <!-- <div class="card my-2" style="height: 250px;">
+                    <div class="card-body">
+                        <p id="titulo-empresa">Carrefour INC S.A</p>
+                        <p id="fecha-publicacion">Publicado hoy</p>
+                        <h5 class="card-title py-2">Cajero Polivalente</h5>
+                        <p class="card-text">
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima deserunt vero expedita eius
+                            voluptatum nisi natus fuga, officia sequi ullam minus praesentium, quam atque officiis.
+                            Animi blanditiis accusamus architecto fugit! Lore
+                        </p>
+                        <div class="ubicacion-card d-flex flex-column">
+                            <i class="bi bi-geo-alt"> Martinez, Buenos
+                                Aires </i>
+                            <i class="bi bi-universal-access"> Presencial
+                            </i>
+                        </div>
+
+                    </div>
+                </div> -->
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
+
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>

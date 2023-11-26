@@ -1,0 +1,154 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+/*** NAVBAR ****/
+
+.navbar a {
+    color: black;
+}
+
+
+/*** END - NAVBAR ****/
+
+
+/*** BUSCADOR MAIN ****/
+
+.busquedas-container {
+    min-height: 45vh;
+    background: url('../assets/consulting-with-lawyer_1098-19616.avif   ') center/cover;
+    opacity: 0.8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search {
+    background-color: rgba(0, 0, 0, 0.51);
+    min-height: 150px;
+    width: 70%;
+    border-radius: 25px;
+    padding: 25px;
+    color: white;
+
+}
+
+#input-palabra-clave {
+    outline: none;
+    margin-top: 8px;
+    width: 65%;
+    height: 55%;
+    border-radius: 15px;
+    padding: 15px;
+}
+
+#input-lugar {
+    outline: none;
+    margin-top: 8px;
+    width: 30%;
+    height: 55%;
+    border-radius: 15px;
+    padding: 15px;
+}
+
+/*** END - BUSCADOR MAIN ****/
+
+
+#titulo-empresa {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgb(0, 0, 24);
+    margin: 0px 3px 0px 0px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#fecha-publicacion {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: rgba(0, 0, 24, 0.6);
+}
+
+.card-title {
+    display: flex;
+    flex-direction: row;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    transition: all 0.3s ease-in-out 0s;
+    color: rgb(88, 89, 146);
+    margin-bottom: 0px;
+}
+
+.card-text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgb(34, 43, 69);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* Número de líneas que deseas mostrar */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card {
+    border-left: 5px solid #ffa171;
+    transition: all 0.1s linear;
+    opacity: .8;
+}
+
+.card:hover {
+    cursor: pointer;
+    box-shadow: 3px 0 8px 3px rgba(0, 0, 0, 0.200);
+    border-left: 7px solid #ff652b;
+    opacity: 1;
+    background-color: rgba(237, 234, 230, 0.804);
+}
+
+.img-container {
+    height: auto;
+    width: 140px;
+    box-shadow: 0 4px 6px -2px rgba(0, 0, 0, .5);
+    border-radius: 5px;
+}
+
+.img-container:hover {
+    cursor: pointer;
+}
+
+.ubicacion-card i {
+    font-style: normal;
+}
+
+.card-text,
+.ubicacion-card i  {
+    font-size: small;
+}
+
+#filtros-col {
+    border-radius: 5px;
+}
+
+.area-filter {
+    font-size: smaller;
+    margin-top: 1.5rem;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.500);    
+}
+.area-filter ul li {
+    list-style: none;
+    margin: 10px auto;
+    padding: 4px;
+}
+.area-filter ul li:hover {
+    background-color: #ffa07140;
+    cursor: pointer;
+}
