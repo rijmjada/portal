@@ -226,17 +226,17 @@ function verificarAutenticacion() {
             const imagenUsuarioUrl = resp.usuario.img; // Asume que la respuesta contiene la URL de la imagen
 
             // Crear un elemento de imagen dentro de un círculo
-            const imagenUsuario = document.createElement('img');
+            let imagenUsuario = document.createElement('img');
             imagenUsuario.src = imagenUsuarioUrl;
             imagenUsuario.alt = nombreUsuario;
             imagenUsuario.className = 'imagen-usuario';
+            imagenUsuario.style.height = '35px';
+            imagenUsuario.style.clipPath = 'circle(50%)';
+            imagenUsuario.style.margin = 'auto 25px';
 
             // Agregar un contenedor de círculo para la imagen del usuario
             const contenedorCirculo = document.createElement('div');
             contenedorCirculo.className = 'circulo-imagen-usuario';
-            contenedorCirculo.style.height = '35px';
-            contenedorCirculo.style.clipPath = 'circle(50%)';
-            contenedorCirculo.style.margin = 'auto 25px';
             contenedorCirculo.appendChild(imagenUsuario);
 
             // Agregar el contenedor del círculo al contenedor de la barra de navegación
