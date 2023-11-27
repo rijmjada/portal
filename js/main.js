@@ -169,6 +169,7 @@ function verificarAutenticacion() {
             // Crear un elemento de párrafo con el nombre del usuario
             const textoUsuario = document.createTextNode(`Hola, ${nombreUsuario}`);
             const parrafoUsuario = document.createElement('p');
+            parrafoUsuario.id = 'nombre-usuario-loging';
             parrafoUsuario.appendChild(textoUsuario);
 
             // Agregar el párrafo al contenedor de la barra de navegación

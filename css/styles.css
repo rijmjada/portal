@@ -152,3 +152,7 @@
     background-color: #ffa07140;
     cursor: pointer;
 }
+
+#nombre-usuario-loging {
+    border: 1px solid black;
+}
