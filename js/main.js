@@ -225,15 +225,25 @@ function verificarAutenticacion() {
             const nombreUsuario = resp.usuario.nombre;
             const imagenUsuarioUrl = resp.usuario.img; // Asume que la respuesta contiene la URL de la imagen
 
-            // Crear un elemento de imagen dentro de un círculo
+
             let imagenUsuario = document.createElement('img');
-            imagenUsuario.src = imagenUsuarioUrl;
-            imagenUsuario.alt = nombreUsuario;
             imagenUsuario.className = 'imagen-usuario';
             imagenUsuario.style.height = '35px';
             imagenUsuario.style.clipPath = 'circle(50%)';
             imagenUsuario.style.margin = 'auto 25px';
             
+            if (imagenUsuarioUrl) {
+                // Crear un elemento de imagen dentro de un círculo
+                imagenUsuario.src = imagenUsuarioUrl;
+                imagenUsuario.alt = nombreUsuario;
+
+            }
+            else {
+                imagenUsuario.src = '../assets/PERFIL-VACIO.png';
+
+            }
+
+
 
             // Agregar un contenedor de círculo para la imagen del usuario
             let contenedorCirculo = document.createElement('div');
