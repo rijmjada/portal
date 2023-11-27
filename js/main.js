@@ -145,50 +145,50 @@ function verificarAutenticacion() {
         return;
     }
 
-    const decodeToken = parseJwt(token);
-    console.log(decodeToken)
+    const { uid } = parseJwt(token);
+    console.log(uid)
 
-    // // Realizar una solicitud GET para obtener la información del usuario
-    // fetch(`http://localhost:8080/api/usuarios/${decodeToken.uid}`, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    // })
-    //     .then(resp => {
-    //         // Verificar si la solicitud fue exitosa (código de estado 2xx)
-    //         if (!resp.ok) {
-    //             throw new Error(`Error en la solicitud: ${resp.status}`);
-    //         }
-    //         return resp.json();
-    //     })
-    //     .then(resp => {
-    //         // Obtener el nombre del usuario desde la respuesta
-    //         const nombreUsuario = resp.usuario.nombre;
+    // Realizar una solicitud GET para obtener la información del usuario
+    fetch(`http://localhost:8080/api/usuarios/${decodeToken.uid}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(resp => {
+            // Verificar si la solicitud fue exitosa (código de estado 2xx)
+            if (!resp.ok) {
+                throw new Error(`Error en la solicitud: ${resp.status}`);
+            }
+            return resp.json();
+        })
+        .then(resp => {
+            // Obtener el nombre del usuario desde la respuesta
+            const nombreUsuario = resp.usuario.nombre;
 
-    //         // Crear un elemento de párrafo con el nombre del usuario
-    //         const textoUsuario = document.createTextNode(`Hola, ${nombreUsuario}`);
-    //         const parrafoUsuario = document.createElement('p');
-    //         parrafoUsuario.appendChild(textoUsuario);
+            // Crear un elemento de párrafo con el nombre del usuario
+            const textoUsuario = document.createTextNode(`Hola, ${nombreUsuario}`);
+            const parrafoUsuario = document.createElement('p');
+            parrafoUsuario.appendChild(textoUsuario);
 
-    //         // Agregar el párrafo al contenedor de la barra de navegación
-    //         const navbarNav = document.getElementById('navbarNav');
-    //         navbarNav.innerHTML = ''; // Limpiar el contenido existente
-    //         navbarNav.appendChild(parrafoUsuario);
+            // Agregar el párrafo al contenedor de la barra de navegación
+            const navbarNav = document.getElementById('navbarNav');
+            navbarNav.innerHTML = ''; // Limpiar el contenido existente
+            navbarNav.appendChild(parrafoUsuario);
 
-    //         // Agregar un botón para cerrar sesión
-    //         const botonCerrarSesion = document.createElement('button');
-    //         botonCerrarSesion.className = 'btn btn-outline-danger';
-    //         botonCerrarSesion.textContent = 'Cerrar Sesión';
-    //         botonCerrarSesion.addEventListener('click', cerrarSesion);
+            // Agregar un botón para cerrar sesión
+            const botonCerrarSesion = document.createElement('button');
+            botonCerrarSesion.className = 'btn btn-outline-danger';
+            botonCerrarSesion.textContent = 'Cerrar Sesión';
+            botonCerrarSesion.addEventListener('click', cerrarSesion);
 
-    //         // Agregar el botón al contenedor de la barra de navegación
-    //         navbarNav.appendChild(botonCerrarSesion);
-    //     })
-    //     .catch(error => {
-    //         console.warn(`Error al obtener información del usuario: ${error.message}`);
-    //         // Manejar el error según tus necesidades (puedes redirigir a la página de inicio de sesión, por ejemplo)
-    //     });
+            // Agregar el botón al contenedor de la barra de navegación
+            navbarNav.appendChild(botonCerrarSesion);
+        })
+        .catch(error => {
+            console.warn(`Error al obtener información del usuario: ${error.message}`);
+            // Manejar el error según tus necesidades (puedes redirigir a la página de inicio de sesión, por ejemplo)
+        });
 }
 
 // Función para cerrar sesión
