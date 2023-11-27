@@ -53,10 +53,3 @@ button {
     border-radius: 4px;
     cursor: pointer;
 }
-
-#img-register {
-    background-image: url(../assets/3d-render-secure-login-password-illustration.jpg);
-    background-position:center;
-    background-size: cover;
-    ;
-}
