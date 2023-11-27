@@ -234,6 +234,9 @@ function verificarAutenticacion() {
             // Agregar un contenedor de círculo para la imagen del usuario
             const contenedorCirculo = document.createElement('div');
             contenedorCirculo.className = 'circulo-imagen-usuario';
+            contenedorCirculo.style.height = '35px';
+            contenedorCirculo.style.clipPath = 'circle(50%)';
+            contenedorCirculo.style.margin = 'auto 25px';
             contenedorCirculo.appendChild(imagenUsuario);
 
             // Agregar el contenedor del círculo al contenedor de la barra de navegación

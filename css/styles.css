@@ -160,8 +160,3 @@
     margin-right: 15px;
 }
 
-.circulo-imagen-usuario {
-    height: 35px;
-    clip-path: circle(50%);
-    margin: auto 25px;
-}
