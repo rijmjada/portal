@@ -161,6 +161,7 @@
 }
 
 .circulo-imagen-usuario {
-    height: 1.5rem;
+    height: 35px;
+    clip-path: circle(50%);
     margin: auto 25px;
 }
