@@ -131,54 +131,64 @@ function parseJwt(token) {
 
 
 // Función para verificar si el usuario está autenticado
-function  verificarAutenticacion() {
+function verificarAutenticacion() {
+
+    
     // Obtener el token del localStorage
     const token = localStorage.getItem('x-token');
 
-    // Si hay un token, el usuario está autenticado
-    if (token) {
-        // Ocultar los botones de "Crear cuenta" e "Ingresar"
-        document.querySelector('#CrearCuenta').classList.add('visually-hidden');
-        document.querySelector('#Ingresar').classList.add('visually-hidden');
-
-        const decodeToken = parseJwt(token);
-
-
-        fetch(`http://localhost:8080/api/usuarios/${decodeToken}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-            .then(resp => resp.json())
-            .then(resp => {
-                console.log(resp)
-            })
-            .catch(console.warn)
-
-
-        // Obtener el nombre del usuario (debes tener tu lógica para obtener el nombre)
-        const nombreUsuario = 'diego'; // Debes implementar esta función
-
-        // Crear un elemento de texto con el nombre del usuario
-        const textoUsuario = document.createTextNode(`Hola, ${nombreUsuario}`);
-
-        // Crear un elemento de párrafo y agregar el texto del usuario
-        const parrafoUsuario = document.createElement('p');
-        parrafoUsuario.appendChild(textoUsuario);
-
-        // Agregar el párrafo al contenedor de la barra de navegación
-        document.getElementById('navbarNav').appendChild(parrafoUsuario);
-
-        // Agregar un botón para cerrar sesión
-        const botonCerrarSesion = document.createElement('button');
-        botonCerrarSesion.className = 'btn btn-outline-danger';
-        botonCerrarSesion.textContent = 'Cerrar Sesión';
-        botonCerrarSesion.addEventListener('click', cerrarSesion);
-
-        // Agregar el botón al contenedor de la barra de navegación
-        document.getElementById('navbarNav').appendChild(botonCerrarSesion);
+    // Si no hay un token, el usuario no está autenticado
+    if (!token) {
+        // Mostrar los botones de "Crear cuenta" e "Ingresar"
+        document.querySelector('#CrearCuenta').classList.remove('visually-hidden');
+        document.querySelector('#Ingresar').classList.remove('visually-hidden');
+        return;
     }
+
+    const decodeToken = parseJwt(token);
+    console.log(decodeToken)
+
+    // // Realizar una solicitud GET para obtener la información del usuario
+    // fetch(`http://localhost:8080/api/usuarios/${decodeToken.uid}`, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    // })
+    //     .then(resp => {
+    //         // Verificar si la solicitud fue exitosa (código de estado 2xx)
+    //         if (!resp.ok) {
+    //             throw new Error(`Error en la solicitud: ${resp.status}`);
+    //         }
+    //         return resp.json();
+    //     })
+    //     .then(resp => {
+    //         // Obtener el nombre del usuario desde la respuesta
+    //         const nombreUsuario = resp.usuario.nombre;
+
+    //         // Crear un elemento de párrafo con el nombre del usuario
+    //         const textoUsuario = document.createTextNode(`Hola, ${nombreUsuario}`);
+    //         const parrafoUsuario = document.createElement('p');
+    //         parrafoUsuario.appendChild(textoUsuario);
+
+    //         // Agregar el párrafo al contenedor de la barra de navegación
+    //         const navbarNav = document.getElementById('navbarNav');
+    //         navbarNav.innerHTML = ''; // Limpiar el contenido existente
+    //         navbarNav.appendChild(parrafoUsuario);
+
+    //         // Agregar un botón para cerrar sesión
+    //         const botonCerrarSesion = document.createElement('button');
+    //         botonCerrarSesion.className = 'btn btn-outline-danger';
+    //         botonCerrarSesion.textContent = 'Cerrar Sesión';
+    //         botonCerrarSesion.addEventListener('click', cerrarSesion);
+
+    //         // Agregar el botón al contenedor de la barra de navegación
+    //         navbarNav.appendChild(botonCerrarSesion);
+    //     })
+    //     .catch(error => {
+    //         console.warn(`Error al obtener información del usuario: ${error.message}`);
+    //         // Manejar el error según tus necesidades (puedes redirigir a la página de inicio de sesión, por ejemplo)
+    //     });
 }
 
 // Función para cerrar sesión
