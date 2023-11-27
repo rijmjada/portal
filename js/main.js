@@ -1,5 +1,5 @@
 
-const URL = 'http://localhost:8080/'    
+const URL = 'http://localhost:8080/'
 
 // Limpiar las cards
 function limpiarDivs() {
@@ -123,6 +123,13 @@ document.querySelector('#Ingresar').addEventListener('click', () => {
     window.location.href = '../login.html';
 });
 
+function parseJwt(token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+};
+
+
 // Función para verificar si el usuario está autenticado
 function verificarAutenticacion() {
     // Obtener el token del localStorage
@@ -134,27 +141,43 @@ function verificarAutenticacion() {
         document.querySelector('#CrearCuenta').classList.add('visually-hidden');
         document.querySelector('#Ingresar').classList.add('visually-hidden');
 
-        // Obtener el nombre del usuario (debes tener tu lógica para obtener el nombre)
-        const nombreUsuario = 'diego'; // Debes implementar esta función
+        const decodeToken = parseJwt(token);
 
-        // Crear un elemento de texto con el nombre del usuario
-        const textoUsuario = document.createTextNode(`Hola, ${nombreUsuario}`);
 
-        // Crear un elemento de párrafo y agregar el texto del usuario
-        const parrafoUsuario = document.createElement('p');
-        parrafoUsuario.appendChild(textoUsuario);
+        fetch(`http://localhost:8080/api/usuarios/${decodeToken}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(resp => resp.json())
+            .then(resp => {
+                console.log(resp)
+            })
+            .catch(console.warn)
 
-        // Agregar el párrafo al contenedor de la barra de navegación
-        document.getElementById('navbarNav').appendChild(parrafoUsuario);
 
-        // Agregar un botón para cerrar sesión
-        const botonCerrarSesion = document.createElement('button');
-        botonCerrarSesion.className = 'btn btn-outline-danger';
-        botonCerrarSesion.textContent = 'Cerrar Sesión';
-        botonCerrarSesion.addEventListener('click', cerrarSesion);
+        // // Obtener el nombre del usuario (debes tener tu lógica para obtener el nombre)
+        // const nombreUsuario = 'diego'; // Debes implementar esta función
 
-        // Agregar el botón al contenedor de la barra de navegación
-        document.getElementById('navbarNav').appendChild(botonCerrarSesion);
+        // // Crear un elemento de texto con el nombre del usuario
+        // const textoUsuario = document.createTextNode(`Hola, ${nombreUsuario}`);
+
+        // // Crear un elemento de párrafo y agregar el texto del usuario
+        // const parrafoUsuario = document.createElement('p');
+        // parrafoUsuario.appendChild(textoUsuario);
+
+        // // Agregar el párrafo al contenedor de la barra de navegación
+        // document.getElementById('navbarNav').appendChild(parrafoUsuario);
+
+        // // Agregar un botón para cerrar sesión
+        // const botonCerrarSesion = document.createElement('button');
+        // botonCerrarSesion.className = 'btn btn-outline-danger';
+        // botonCerrarSesion.textContent = 'Cerrar Sesión';
+        // botonCerrarSesion.addEventListener('click', cerrarSesion);
+
+        // // Agregar el botón al contenedor de la barra de navegación
+        // document.getElementById('navbarNav').appendChild(botonCerrarSesion);
     }
 }
 
