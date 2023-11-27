@@ -29,16 +29,16 @@
                     <h1> Ingresá a tu cuenta </h1>
                     <p> ¡Hola! Accedé y encontrá el trabajo que buscás </p>
 
-
+                    <!-- GOOGLE SIGNIN -->
                     <br>
                     <div id="g_id_onload"
                         data-client_id="382795868515-qani5mnrb9qhhlh8fpvrfun8068skjlg.apps.googleusercontent.com"
                         data-auto_prompt="false" data-callback="handleCredentialResponse">
                     </div>
 
-
                     <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline"
-                        data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="center" style="min-width: 100%;">
+                        data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="center"
+                        style="width: 100% !important;">
                     </div>
 
                     <button id="google_signOut" class="btn btn-outline-primary">
@@ -47,10 +47,7 @@
 
                     <hr>
                     <br>
-
-
-
-
+                    <!-- END - GOOGLE SIGNIN -->
 
 
                     <label for="correo"> Email:</label>
@@ -59,7 +56,6 @@
                     <label for="password">Contraseña:</label>
                     <input type="password" id="password" name="password" required
                         placeholder="Ingresa tu contraseña...">
-
 
 
                     <button type="submit">Ingresar</button>

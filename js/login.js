@@ -69,6 +69,8 @@ function handleCredentialResponse(response) {
         .then(resp => {
             console.log(resp)
             localStorage.setItem('email', resp.usuario.correo);
+            window.location.href = '../index.html';
+
         })
         .catch(console.warn)
 
@@ -84,4 +86,8 @@ btnSignOut.addEventListener('click', async () => {
         localStorage.clear()
         location.reload()
     });
+});
+
+document.querySelector('#goHome').addEventListener('click', () => {
+    window.location.href = '../index.html';
 });
