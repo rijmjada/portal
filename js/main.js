@@ -131,9 +131,68 @@ function parseJwt(token) {
 
 
 // Función para verificar si el usuario está autenticado
-function verificarAutenticacion() {
+// function verificarAutenticacion() {
 
-    
+
+//     // Obtener el token del localStorage
+//     const token = localStorage.getItem('x-token');
+
+//     // Si no hay un token, el usuario no está autenticado
+//     if (!token) {
+//         // Mostrar los botones de "Crear cuenta" e "Ingresar"
+//         document.querySelector('#CrearCuenta').classList.remove('visually-hidden');
+//         document.querySelector('#Ingresar').classList.remove('visually-hidden');
+//         return;
+//     }
+
+//     const { uid } = parseJwt(token);
+//     console.log(uid)
+
+//     // Realizar una solicitud GET para obtener la información del usuario
+//     fetch(`http://localhost:8080/api/usuarios/${uid}`, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//     })
+//         .then(resp => {
+//             // Verificar si la solicitud fue exitosa (código de estado 2xx)
+//             if (!resp.ok) {
+//                 throw new Error(`Error en la solicitud: ${resp.status}`);
+//             }
+//             return resp.json();
+//         })
+//         .then(resp => {
+//             // Obtener el nombre del usuario desde la respuesta
+//             const nombreUsuario = resp.usuario.nombre;
+
+//             // Crear un elemento de párrafo con el nombre del usuario
+//             const textoUsuario = document.createTextNode(`Hola, ${nombreUsuario}`);
+//             const parrafoUsuario = document.createElement('p');
+//             parrafoUsuario.id = 'nombre-usuario-loging';
+//             parrafoUsuario.appendChild(textoUsuario);
+
+//             // Agregar el párrafo al contenedor de la barra de navegación
+//             const navbarNav = document.getElementById('navbarNav');
+//             navbarNav.innerHTML = ''; // Limpiar el contenido existente
+//             navbarNav.appendChild(parrafoUsuario);
+
+//             // Agregar un botón para cerrar sesión
+//             const botonCerrarSesion = document.createElement('button');
+//             botonCerrarSesion.className = 'btn btn-outline-danger';
+//             botonCerrarSesion.textContent = 'Cerrar Sesión';
+//             botonCerrarSesion.addEventListener('click', cerrarSesion);
+
+//             // Agregar el botón al contenedor de la barra de navegación
+//             navbarNav.appendChild(botonCerrarSesion);
+//         })
+//         .catch(error => {
+//             console.warn(`Error al obtener información del usuario: ${error.message}`);
+//             // Manejar el error según tus necesidades (puedes redirigir a la página de inicio de sesión, por ejemplo)
+//         });
+// }
+
+function verificarAutenticacion() {
     // Obtener el token del localStorage
     const token = localStorage.getItem('x-token');
 
@@ -146,36 +205,47 @@ function verificarAutenticacion() {
     }
 
     const { uid } = parseJwt(token);
-    console.log(uid)
 
     // Realizar una solicitud GET para obtener la información del usuario
     fetch(`http://localhost:8080/api/usuarios/${uid}`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
     })
-        .then(resp => {
+        .then((resp) => {
             // Verificar si la solicitud fue exitosa (código de estado 2xx)
             if (!resp.ok) {
                 throw new Error(`Error en la solicitud: ${resp.status}`);
             }
             return resp.json();
         })
-        .then(resp => {
-            // Obtener el nombre del usuario desde la respuesta
+        .then((resp) => {
+            // Obtener el nombre y la URL de la imagen del usuario desde la respuesta
             const nombreUsuario = resp.usuario.nombre;
+            const imagenUsuarioUrl = resp.usuario.img; // Asume que la respuesta contiene la URL de la imagen
 
-            // Crear un elemento de párrafo con el nombre del usuario
-            const textoUsuario = document.createTextNode(`Hola, ${nombreUsuario}`);
-            const parrafoUsuario = document.createElement('p');
-            parrafoUsuario.id = 'nombre-usuario-loging';
-            parrafoUsuario.appendChild(textoUsuario);
+            // Crear un elemento de imagen dentro de un círculo
+            const imagenUsuario = document.createElement('img');
+            imagenUsuario.src = imagenUsuarioUrl;
+            imagenUsuario.alt = nombreUsuario;
+            imagenUsuario.className = 'imagen-usuario';
 
-            // Agregar el párrafo al contenedor de la barra de navegación
+            // Agregar un contenedor de círculo para la imagen del usuario
+            const contenedorCirculo = document.createElement('div');
+            contenedorCirculo.className = 'circulo-imagen-usuario';
+            contenedorCirculo.appendChild(imagenUsuario);
+
+            // Agregar el contenedor del círculo al contenedor de la barra de navegación
             const navbarNav = document.getElementById('navbarNav');
             navbarNav.innerHTML = ''; // Limpiar el contenido existente
-            navbarNav.appendChild(parrafoUsuario);
+            navbarNav.appendChild(contenedorCirculo);
+
+            // Agregar un evento click para redirigir a la página de perfil
+            contenedorCirculo.addEventListener('click', () => {
+                // Redirigir a la página de perfil (ajusta la URL según tu estructura)
+                window.location.href = `/perfil/${uid}`;
+            });
 
             // Agregar un botón para cerrar sesión
             const botonCerrarSesion = document.createElement('button');
@@ -186,11 +256,12 @@ function verificarAutenticacion() {
             // Agregar el botón al contenedor de la barra de navegación
             navbarNav.appendChild(botonCerrarSesion);
         })
-        .catch(error => {
+        .catch((error) => {
             console.warn(`Error al obtener información del usuario: ${error.message}`);
             // Manejar el error según tus necesidades (puedes redirigir a la página de inicio de sesión, por ejemplo)
         });
 }
+
 
 // Función para cerrar sesión
 function cerrarSesion() {
