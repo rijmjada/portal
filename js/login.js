@@ -67,7 +67,7 @@ function handleCredentialResponse(response) {
     })
         .then(resp => resp.json())
         .then(resp => {
-            console.log(`averga: ${resp}`)
+            console.log(resp)
             localStorage.setItem('email', resp.usuario.correo);
         })
         .catch(console.warn)
