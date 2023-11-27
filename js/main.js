@@ -149,7 +149,7 @@ function verificarAutenticacion() {
     console.log(uid)
 
     // Realizar una solicitud GET para obtener la información del usuario
-    fetch(`http://localhost:8080/api/usuarios/${decodeToken.uid}`, {
+    fetch(`http://localhost:8080/api/usuarios/${uid}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
