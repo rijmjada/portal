@@ -131,7 +131,7 @@ function parseJwt(token) {
 
 
 // Función para verificar si el usuario está autenticado
-function verificarAutenticacion() {
+function  verificarAutenticacion() {
     // Obtener el token del localStorage
     const token = localStorage.getItem('x-token');
 
@@ -157,27 +157,27 @@ function verificarAutenticacion() {
             .catch(console.warn)
 
 
-        // // Obtener el nombre del usuario (debes tener tu lógica para obtener el nombre)
-        // const nombreUsuario = 'diego'; // Debes implementar esta función
+        // Obtener el nombre del usuario (debes tener tu lógica para obtener el nombre)
+        const nombreUsuario = 'diego'; // Debes implementar esta función
 
-        // // Crear un elemento de texto con el nombre del usuario
-        // const textoUsuario = document.createTextNode(`Hola, ${nombreUsuario}`);
+        // Crear un elemento de texto con el nombre del usuario
+        const textoUsuario = document.createTextNode(`Hola, ${nombreUsuario}`);
 
-        // // Crear un elemento de párrafo y agregar el texto del usuario
-        // const parrafoUsuario = document.createElement('p');
-        // parrafoUsuario.appendChild(textoUsuario);
+        // Crear un elemento de párrafo y agregar el texto del usuario
+        const parrafoUsuario = document.createElement('p');
+        parrafoUsuario.appendChild(textoUsuario);
 
-        // // Agregar el párrafo al contenedor de la barra de navegación
-        // document.getElementById('navbarNav').appendChild(parrafoUsuario);
+        // Agregar el párrafo al contenedor de la barra de navegación
+        document.getElementById('navbarNav').appendChild(parrafoUsuario);
 
-        // // Agregar un botón para cerrar sesión
-        // const botonCerrarSesion = document.createElement('button');
-        // botonCerrarSesion.className = 'btn btn-outline-danger';
-        // botonCerrarSesion.textContent = 'Cerrar Sesión';
-        // botonCerrarSesion.addEventListener('click', cerrarSesion);
+        // Agregar un botón para cerrar sesión
+        const botonCerrarSesion = document.createElement('button');
+        botonCerrarSesion.className = 'btn btn-outline-danger';
+        botonCerrarSesion.textContent = 'Cerrar Sesión';
+        botonCerrarSesion.addEventListener('click', cerrarSesion);
 
-        // // Agregar el botón al contenedor de la barra de navegación
-        // document.getElementById('navbarNav').appendChild(botonCerrarSesion);
+        // Agregar el botón al contenedor de la barra de navegación
+        document.getElementById('navbarNav').appendChild(botonCerrarSesion);
     }
 }
 
