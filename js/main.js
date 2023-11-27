@@ -233,10 +233,12 @@ function verificarAutenticacion() {
             imagenUsuario.style.height = '35px';
             imagenUsuario.style.clipPath = 'circle(50%)';
             imagenUsuario.style.margin = 'auto 25px';
+            
 
             // Agregar un contenedor de círculo para la imagen del usuario
-            const contenedorCirculo = document.createElement('div');
+            let contenedorCirculo = document.createElement('div');
             contenedorCirculo.className = 'circulo-imagen-usuario';
+            contenedorCirculo.style.cursor = 'pointer';
             contenedorCirculo.appendChild(imagenUsuario);
 
             // Agregar el contenedor del círculo al contenedor de la barra de navegación
@@ -247,7 +249,7 @@ function verificarAutenticacion() {
             // Agregar un evento click para redirigir a la página de perfil
             contenedorCirculo.addEventListener('click', () => {
                 // Redirigir a la página de perfil (ajusta la URL según tu estructura)
-                window.location.href = `/perfil/${uid}`;
+                window.location.href = `../perfil.html`;
             });
 
             // Agregar un botón para cerrar sesión
