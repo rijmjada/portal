@@ -69,7 +69,6 @@ function handleCredentialResponse(response) {
         .then(resp => {
             console.log(resp)
             localStorage.setItem('email', resp.usuario.correo);
-            window.location.href = '../index.html';
 
         })
         .catch(console.warn)
