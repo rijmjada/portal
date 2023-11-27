@@ -231,18 +231,9 @@ function verificarAutenticacion() {
             imagenUsuario.style.height = '35px';
             imagenUsuario.style.clipPath = 'circle(50%)';
             imagenUsuario.style.margin = 'auto 25px';
-            
-            if (imagenUsuarioUrl) {
-                // Crear un elemento de imagen dentro de un círculo
-                imagenUsuario.src = imagenUsuarioUrl;
-                imagenUsuario.alt = nombreUsuario;
+            imagenUsuario.alt = nombreUsuario;
 
-            }
-            else {
-                imagenUsuario.src = '../assets/PERFIL-VACIO.png';
-
-            }
-
+            imagenUsuario.src = imagenUsuarioUrl ? imagenUsuarioUrl : '../assets/PERFIL-VACIO.png';
 
 
             // Agregar un contenedor de círculo para la imagen del usuario
