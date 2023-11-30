@@ -24,7 +24,7 @@
     <div class="container container-login">
         <div class="row min-vh-100">
             <div class="col d-flex justify-content-center align-items-center">
-                <form id="loginForm" onsubmit="loginFormSubmit();">
+                <form id="loginForm" onsubmit="loginFormSubmit(event);">
 
                     <h1> Ingresá a tu cuenta </h1>
                     <p> ¡Hola! Accedé y encontrá el trabajo que buscás </p>
@@ -59,9 +59,15 @@
 
 
                     <button type="submit">Ingresar</button>
+                    <!-- Agregar un div para mostrar mensajes de error -->
+                    <div id="error-message" class="alert alert-danger" style="display: none;"></div>
+
+                </form>
+
                 </form>
 
             </div>
+
 
 
             <div class="col d-flex justify-content-center align-items-center">

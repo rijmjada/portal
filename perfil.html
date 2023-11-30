@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Mi Perfil </title>
+    <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="./css/perfil.css">
-
 
 </head>
 
@@ -18,35 +18,143 @@
 
     <header>
         <i class="bi bi-arrow-left-circle fs-2" id="goHome"></i>
-        <img src="assets/logo-zonajobs.ddca20fb.svg" alt="">
+        <img src="assets/logo-job.png" alt="" id="logo-job">
     </header>
 
+    <div class="container d-flex justify-content-center align-items-center" style="margin-top: 9vh;">
+        <div class="row ">
 
-    <div class="container bg-info">
-        <div class="row bg-body-tertiary min-vh-100 d-flex justify-content-center align-content-between">
-            <div class="col-4 bg-danger-subtle ">
+            <div class="col-sm-12 col-md-12 col-lg-6 p-5 text-center">
 
-                <form id="registerForm" onsubmit="handleFormSubmit();" class="d-flex flex-column">
-                    <label for="nombre">Nombre(s):</label>
-                    <input type="text" id="nombre" name="nombre" required placeholder="Ingresa tu nombre(s)...">
+                <div id="img-container">
+                    <img src="./assets/PERFIL-VACIO.png" class="my-4" alt="" id="img-user" data-bs-toggle="modal"
+                        data-bs-target="#dragDropDialog">
+                    <i class=" bi bi-upload d-none fs-5" id="icon-upload-img"></i>
+                </div>
 
-                    <label for="apellido">Apellido:</label>
-                    <input type="text" id="apellido" name="apellido" required placeholder="Ingresa tu apellido...">
 
-                    <label for="correo"> Email:</label>
-                    <input type="email" id="correo" name="correo" required placeholder="Ingresa tu email...">
+                <!-- MODAL -->
+                <div class="modal fade" id="dragDropDialog" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered ">
+                        <div class="modal-content p-3">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Actualizar foto de perfil</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="drop-area" ondrop="handleDrop(event)" ondragover="handleDragOver(event)"
+                                    class="d-flex justify-content-center align-items-center"
+                                    style="height: 35vh !important;">
+                                    <h6> Arrastra y suelta aquí:</h6>
+                                </div>
 
+                                <br>
+                                <h6>O Selecciona el archivo:</h6>
+                                <!-- Botón y campo de entrada de archivos -->
+                                <button type="button" class="btn btn-primary mt-3" onclick="openFileInput()">
+                                    Seleccionar
+                                </button>
+                                <input type="file" id="file-input" style="display:none" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END MODAL -->
+
+
+                <form class="row g-3 p-5">
+
+                    <div class="col-md-6">
+                        <label for="inputName" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="inputName">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputApellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" id="inputApellido">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="inputCorreo" class="form-label">Correo</label>
+                        <div class="input-group align-items-baseline d-flex">
+                            <span class="input-group-text">
+                                <i class="bi bi-envelope"></i>
+                            </span>
+                            <input type="email" class="form-control" id="inputCorreo" style="border-radius: 2px;">
+                        </div>
+                    </div>
                     
 
-                    <button type="submit" onclick="handleFormSubmit()">Enviar</button>
+
+
+
+
+
+                    <!-- CAMBIAR PASSWORD -->
+                    <div class="form-check ms-3 mt-3 d-flex">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="changePassword" checked
+                            data-bs-toggle="collapse" data-bs-target="#passwordContent">
+                        <label for="changePassword" class="form-check-label ms-2">Cambiar contraseña</label>
+                    </div>
+
+                    <div class="collapse ms-3 mt-1 row p-3" id="passwordContent">
+
+                        <!-- Cambiar password -->
+                        <div class="col-md-12 mt-2">
+                            <label for="inputPassword" class="form-label"> Contraseña actual </label>
+                            <input type="password" class="form-control" id="inputPassword">
+                        </div>
+
+                        <div class="col-md-6 mt-2">
+                            <label for="inputNewPass" class="form-label"> Nueva contraseña </label>
+                            <input type="password" class="form-control" id="inputNewPass">
+                        </div>
+
+                        <div class="col-md-6 mt-2">
+                            <label for="inputConfirmNewPass" class="form-label"> Confirmar contraseña </label>
+                            <input type="password" class="form-control" id="inputConfirmNewPass">
+                        </div>
+                        <!-- END - Cambiar password -->
+                    </div>
+                    <!-- END - CAMBIAR PASSWORD -->
+
+
+
+
+
+
+
+                    <div class="col-12 mt-4">
+                        <div class="row ">
+                            <div class="col p-2">
+                                <button type="submit" class="btn btn-outline-primary " style="width: 100%;"> Actualizar
+                                </button>
+                            </div>
+
+                            <div class="col p-2">
+                                <button class="btn btn-outline-danger " style="width: 100%;"> Eliminar cuenta </button>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </form>
+
             </div>
+
+            <div class="col-sm-12 col-md-12 col-lg-6 p-5 text-center mt-5">
+                <img src="./assets/profile.svg" alt="">
+            </div>
+
         </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
         </script>
+
     <script src="./js/perfil.js"></script>
 </body>
 

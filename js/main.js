@@ -228,8 +228,8 @@ function verificarAutenticacion() {
 
             let imagenUsuario = document.createElement('img');
             imagenUsuario.className = 'imagen-usuario';
-            imagenUsuario.style.height = '35px';
-            imagenUsuario.style.clipPath = 'circle(50%)';
+            imagenUsuario.style.height = '40px';
+            imagenUsuario.style.clipPath = 'circle(30%)';
             imagenUsuario.style.margin = 'auto 25px';
             imagenUsuario.alt = nombreUsuario;
 
@@ -285,3 +285,31 @@ window.onload = function () {
     obtenerDatos();
     verificarAutenticacion();
 };
+
+
+function realizarBusqueda() {
+    // Obtener el valor del input de palabra clave
+    var palabraClave = encodeURIComponent(document.getElementById('input-palabra-clave').value);
+
+    // Construir la URL del endpoint con el parámetro "termino"
+    var url = URL + 'api/ofertas?termino=' + palabraClave;
+
+    // Realizar la solicitud HTTP utilizando Fetch
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.total > 0) {
+                const ofertas = data.ofertas;
+                limpiarDivs()
+                // Llama a la función para construir las tarjetas con los datos obtenidos
+                ofertas.forEach(oferta => {
+                    construirTarjeta(oferta);
+                });
+            } else {
+                console.log('No hay ofertas disponibles.');
+            }
+        })
+        .catch(error => {
+            console.error('Error al realizar la solicitud:', error);
+        });
+}

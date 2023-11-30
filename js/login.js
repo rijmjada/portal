@@ -1,9 +1,11 @@
 const URL = 'http://localhost:8080/'
 
 
-
 function loginFormSubmit() {
-    event.preventDefault(); // Evitar la recarga de la página
+
+    event.preventDefault();
+    // Limpiar mensajes de error previos
+    document.getElementById('error-message').style.display = 'none';
 
     let correo = document.getElementById('correo').value;
     let password = document.getElementById('password').value;
@@ -27,24 +29,26 @@ function loginFormSubmit() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            correo: usuario.correo,  // Usar el correo del usuario registrado
-            password: usuario.password  // Usar la contraseña del formulario de registro
+            correo: usuario.correo,
+            password: usuario.password
         })
     })
         .then(response => response.json())
         .then(loginData => {
-            // Manejar la respuesta del inicio de sesión
             if (loginData.msg) {
                 // Mostrar mensaje de error si lo hay
-                alert('Error en el inicio de sesión: ' + loginData.msg);
+                document.getElementById('error-message').innerText = 'Usuario o contraseña incorrectos.';
+                document.getElementById('error-message').style.display = 'block';
             } else {
-                // Mostrar información del usuario y el token de inicio de sesión
-                console.log('nombre:', loginData.usuario.nombre);
-                console.log('correo:', loginData.usuario.correo);
-                console.log('Token de sesión:', loginData.token);
-                localStorage.setItem('x-token', loginData.token);
-                window.location.href = '/';
-
+                // Verificar si el estado del usuario es true
+                if (loginData.usuario.estado) {
+                    // Mostrar información del usuario y el token de inicio de sesión
+                    console.log('nombre:', loginData.usuario.nombre);
+                    console.log('correo:', loginData.usuario.correo);
+                    console.log('Token de sesión:', loginData.token);
+                    localStorage.setItem('x-token', loginData.token);
+                    window.location.href = '/';
+                }
             }
         })
         .catch(loginError => {
@@ -52,6 +56,8 @@ function loginFormSubmit() {
             console.error('Error en la solicitud de inicio de sesión:', loginError);
         });
 }
+
+
 
 
 function handleCredentialResponse(response) {
@@ -87,6 +93,9 @@ btnSignOut.addEventListener('click', async () => {
         location.reload()
     });
 });
+
+
+
 
 document.querySelector('#goHome').addEventListener('click', () => {
     window.location.href = '../index.html';
