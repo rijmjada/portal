@@ -70,3 +70,108 @@ header i {
 #logo-job {
     height: 3rem;
 }
+
+/* SPINNER LOADER */
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Estilos para el modal delete*/
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    height: fit-content;
+    width: 100%;
+    background-color: whitesmoke;
+    padding: 2rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Estilos para el botón de confirmar y cancelar */
+.modal-btn {
+    border-radius: 2rem;
+    margin: 0 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+input {
+    border: 1px solid rgba(0, 0, 0, 0.393) !important;
+}
+
+
+/*/*/
+#titulo-empresa {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgb(0, 0, 24);
+    margin: 0px 3px 0px 0px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#fecha-publicacion {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: rgba(0, 0, 24, 0.6);
+}
+
+.card-title {
+    display: flex;
+    flex-direction: row;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    transition: all 0.3s ease-in-out 0s;
+    color: rgb(88, 89, 146);
+    margin-bottom: 0px;
+}
+
+.card-text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgb(34, 43, 69);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* Número de líneas que deseas mostrar */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card {
+    border-left: 5px solid #ffa171;
+    transition: all 0.1s linear;
+    opacity: .8;
+}
+
+.card:hover {
+    cursor: pointer;
+    box-shadow: 3px 0 8px 3px rgba(0, 0, 0, 0.200);
+    border-left: 7px solid #ff652b;
+    opacity: 1;
+    background-color: rgba(234, 209, 179, 0.3);
+}

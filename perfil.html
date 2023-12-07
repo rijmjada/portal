@@ -21,8 +21,21 @@
         <img src="assets/logo-job.png" alt="" id="logo-job">
     </header>
 
+
+
     <div class="container d-flex justify-content-center align-items-center" style="margin-top: 9vh;">
+
         <div class="row ">
+
+            <!-- BTN -->
+            <div class="container d-none">
+                <div class="row" style="min-height: 60px;">
+                    <div class="col d-flex justify-content-center align-items-center gap-2"
+                        style="border-radius: 15px;">
+                        <div class="btn btn-warning text-dark-emphasis" id="btn-user-rol"></div>
+                    </div>
+                </div>
+            </div>
 
             <div class="col-sm-12 col-md-12 col-lg-6 p-5 text-center">
 
@@ -63,92 +76,122 @@
                 </div>
                 <!-- END MODAL -->
 
+                <!-- SPINNER LOADER -->
+                <div class="loader-container d-none">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                    <span style="margin-left: 5px;"> Actualizando...</span>
 
-                <form class="row g-3 p-5">
+                </div>
+                <!-- END - SPINNER LOADER -->
 
+                <form class="row g-3 p-5" onsubmit=" actualizarPerfil(event)">
                     <div class="col-md-6">
-                        <label for="inputName" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="inputName">
+                        <label for="inputName" class="form-label">Nombre(s):</label>
+                        <input type="text" class="form-control" id="inputName" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="inputApellido" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" id="inputApellido">
+                        <label for="inputApellido" class="form-label">Apellido(s):</label>
+                        <input type="text" class="form-control" id="inputApellido" required>
                     </div>
 
                     <div class="col-md-12">
-                        <label for="inputCorreo" class="form-label">Correo</label>
+                        <label for="inputCorreo" class="form-label">Correo:</label>
                         <div class="input-group align-items-baseline d-flex">
                             <span class="input-group-text">
                                 <i class="bi bi-envelope"></i>
                             </span>
-                            <input type="email" class="form-control" id="inputCorreo" style="border-radius: 2px;">
+                            <input type="email" class="form-control" id="inputCorreo" style="border-radius: 2px;"
+                                required>
                         </div>
                     </div>
-                    
 
 
+                    <!-- MESSAGE INFORM REQUEST -->
+                    <div id="msg-inform-request" class="d-none">
+                        <p id="msg-inform-p"></p>
+                    </div>
 
 
-
-
-                    <!-- CAMBIAR PASSWORD -->
+                    <!-- CAMBIAR CONTRASEÑA -->
                     <div class="form-check ms-3 mt-3 d-flex">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="changePassword" checked
-                            data-bs-toggle="collapse" data-bs-target="#passwordContent">
+                        <input class="form-check-input" type="checkbox" id="changePassword" data-bs-toggle="collapse"
+                            data-bs-target="#passwordContent" onclick="togglePasswordFields()"
+                            style="border: 1px solid black;">
                         <label for="changePassword" class="form-check-label ms-2">Cambiar contraseña</label>
                     </div>
 
                     <div class="collapse ms-3 mt-1 row p-3" id="passwordContent">
-
-                        <!-- Cambiar password -->
                         <div class="col-md-12 mt-2">
-                            <label for="inputPassword" class="form-label"> Contraseña actual </label>
+                            <label for="inputPassword" class="form-label"> Contraseña actual: </label>
                             <input type="password" class="form-control" id="inputPassword">
                         </div>
-
                         <div class="col-md-6 mt-2">
-                            <label for="inputNewPass" class="form-label"> Nueva contraseña </label>
+                            <label for="inputNewPass" class="form-label"> Nueva contraseña: </label>
                             <input type="password" class="form-control" id="inputNewPass">
                         </div>
-
                         <div class="col-md-6 mt-2">
-                            <label for="inputConfirmNewPass" class="form-label"> Confirmar contraseña </label>
+                            <label for="inputConfirmNewPass" class="form-label"> Confirmar contraseña: </label>
                             <input type="password" class="form-control" id="inputConfirmNewPass">
                         </div>
-                        <!-- END - Cambiar password -->
+
                     </div>
-                    <!-- END - CAMBIAR PASSWORD -->
-
-
-
-
-
+                    <!-- FIN - CAMBIAR CONTRASEÑA -->
 
 
                     <div class="col-12 mt-4">
                         <div class="row ">
                             <div class="col p-2">
-                                <button type="submit" class="btn btn-outline-primary " style="width: 100%;"> Actualizar
+                                <button type="submit" class="btn btn-outline-primary" style="width: 100%;"> Actualizar
                                 </button>
                             </div>
 
                             <div class="col p-2">
-                                <button class="btn btn-outline-danger " style="width: 100%;"> Eliminar cuenta </button>
+                                <button class="btn btn-outline-danger" onclick="DeleteAccount(event)"
+                                    style="width: 100%;"> Eliminar cuenta </button>
                             </div>
+
+
+                            <!-- Modal -->
+                            <div id="delteModal" class="modal">
+                                <div class="modal-content">
+                                    <p>¿Confirmar la acción?</p>
+                                    <div class="container">
+                                        <button class="modal-btn" onclick="eliminarCuenta(event)">Confirmar</button>
+                                        <button class="modal-btn" onclick="cerrarModal(event)">Cancelar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
-
-
                 </form>
 
             </div>
 
-            <div class="col-sm-12 col-md-12 col-lg-6 p-5 text-center mt-5">
+            <div class="col-sm-12 col-md-12 col-lg-6 p-5 text-center mt-5" id="col-imgProfile">
                 <img src="./assets/profile.svg" alt="">
+            </div>
+
+            <div class="col-sm-12 col-md-12 col-lg-6 p-5 text-center mt-5 d-none" id="col-tarjetasProfile">
+
+                <div class="row" id="col-tarjetas">
+                    <!-- Contenedor de tarjetas -->
+                </div>
+
+                <!-- Contenedor de paginación -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination" id="pagination">
+                        <!-- Aquí se generará la paginación dinámicamente -->
+                    </ul>
+                </nav>
             </div>
 
         </div>
     </div>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

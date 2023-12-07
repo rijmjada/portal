@@ -1,7 +1,6 @@
-
-
 header {
-    background-color: #2d2f30; /* Cambia el color de fondo según tus preferencias */
+    background-color: #2d2f30;
+    /* Cambia el color de fondo según tus preferencias */
     padding: 10px;
     top: 0;
     width: 100%;
@@ -12,7 +11,7 @@ header {
 
 header img {
     display: block;
-    margin: 0 auto; 
+    margin: 0 auto;
     height: 3rem;
 }
 
@@ -20,7 +19,7 @@ header i {
     position: absolute;
     left: 15%;
     font-size: 2rem;
-    margin-right: 10px; 
+    margin-right: 10px;
     color: bisque;
     cursor: pointer;
 }
@@ -58,3 +57,30 @@ button {
     border-radius: 4px;
     cursor: pointer;
 }
+
+
+#registerForm {
+    min-width: 65%;
+    max-width: 80%;
+}
+
+
+#registerForm input,
+label {
+    font-size: smaller;
+}
+
+@media (max-width: 990px) {
+    * {
+        font-size: small;
+    }
+}
+
+:placeholder-shown {
+    font-style: italic;
+}
+
+input {
+    border: 1px solid rgba(0, 0, 0, 0.487);
+}
+
