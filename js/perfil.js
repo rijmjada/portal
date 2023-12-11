@@ -1,14 +1,7 @@
 
 let USER_UID = '';
 let USER_DATA = '';
-let URL_CARGAR_IMG = 'http://localhost:8080/api/upload/usuarios/';
-
-
-// Función para el evento onload
-window.onload = function () {
-    obtenerInformacionUsuario();
-};
-
+let URL_CARGAR_IMG = 'http://localhost:8080/api/upload/imagen/';
 
 
 async function obtenerInformacionUsuario() {
@@ -44,124 +37,58 @@ async function obtenerInformacionUsuario() {
 }
 
 function cargarBtnUserRol(rol) {
-    const btn = document.querySelector('#btn-user-rol');
 
-    if (rol === 'empresa') {
-        btn.textContent = 'Mis publicaciones';
+    const btn2 = document.querySelector('#btn-2');
+    const btn3 = document.querySelector('#btn-3');
+
+    if (rol === 'postulante') {
+        cargarBtnsPostulante(btn2, btn3);
     }
-    else if (rol === 'postulante') {
-        btn.textContent = 'Mis postulaciones';
+    else if (rol === 'empresa') {
+        cargarBtnsEmpresa(btn2, btn3)
     }
 }
 
-document.querySelector('#btn-user-rol').addEventListener('click', () => {
-
-    toogleColumnas();
-    const colTarjetas = document.querySelector('#col-tarjetas');
-    colTarjetas.innerHTML = '';
-
-    const paginacion = document.querySelector('#pagination');
-
-    if (USER_DATA.ofertasAplicadas && Array.isArray(USER_DATA.ofertasAplicadas)) {
-        // Iterar sobre cada elemento en "ofertasAplicadas"
-        USER_DATA.ofertasAplicadas.forEach(async ofertaId => {
-            const data = await obtenerDatosDeOferta(ofertaId);
-            console.log(data)
-            if (data) {
-                // Crear una nueva tarjeta
-                const nuevaTarjeta = crearTarjeta(data);
-                // Agregar la tarjeta al contenedor
-                colTarjetas.appendChild(nuevaTarjeta);
-            }
-        });
-    } else {
-        console.log("La propiedad 'ofertasAplicadas' no es un array o no existe.");
-    }
-
-});
-
-function toogleColumnas() {
-    const colImgProfile = document.querySelector('#col-imgProfile');
-    colImgProfile.classList.add('d-none');
-
-    const colTarjetasProfile = document.querySelector('#col-tarjetasProfile');
-    colTarjetasProfile.classList.remove('d-none');
+function cargarBtnsEmpresa(btn2, btn3) {
+    btn2.textContent = 'Mi empresa';
+    btn3.textContent = 'Mis publicaciones';
+    btn2.addEventListener('click', handledatosEmpresa);
+    btn3.addEventListener('click', handleMisPublicaciones);
 }
 
+function cargarBtnsPostulante(btn2, btn3) {
+    btn2.textContent = 'Mi curriculum';
+    btn3.textContent = 'Mi postulaciones';
+    btn2.addEventListener('click', handleMiCv);
+    btn3.addEventListener('click', handleMisPostulaciones);
+}
 
+// Función que maneja el evento click de los botones
+function handledatosEmpresa(event) {
+    alert('Mi handledatosEmpresa');
+}
 
-function crearTarjeta(data) {
-    // Crear elementos HTML para la nueva tarjeta
-    const nuevaTarjeta = document.createElement('div');
-    nuevaTarjeta.className = 'col-lg-5 col-12 card m-2 ';
-    nuevaTarjeta.style.height = '250px';
+// Función que maneja el evento click de los botones
+function handleMisPublicaciones(event) {
+    event.preventDefault();
+    window.location.href = '../publicaciones.html';
+}
 
-    const cardBody = document.createElement('div');
-    cardBody.className = 'card-body';
+// Función que maneja el evento click de los botones
+function handleMiCv(event) {
+    event.preventDefault();
+    window.location.href = '../curriculum.html';
+}
 
-    const tituloEmpresa = document.createElement('p');
-    tituloEmpresa.id = 'titulo-empresa';
-    tituloEmpresa.textContent = data.empresa;  // Reemplaza con la propiedad correcta del objeto data
-
-    const fechaPublicacion = document.createElement('p');
-    fechaPublicacion.id = 'fecha-publicacion';
-    fechaPublicacion.textContent = 'Publicado hoy';  // Puedes agregar la lógica para obtener la fecha actual
-
-    const tituloOferta = document.createElement('h5');
-    tituloOferta.className = 'card-title py-2';
-    tituloOferta.textContent = data.puesto;  // Reemplaza con la propiedad correcta del objeto data
-
-    const descripcionOferta = document.createElement('p');
-    descripcionOferta.className = 'card-text';
-    descripcionOferta.textContent = data.descripcion;  // Reemplaza con la propiedad correcta del objeto data
-
-    const ubicacionCard = document.createElement('div');
-    ubicacionCard.className = 'ubicacion-card d-flex flex-column';
-
-    const iconoGeo = document.createElement('i');
-    iconoGeo.className = 'bi bi-geo-alt';
-    iconoGeo.textContent = ` ${data.ubicacion}`;  // Reemplaza con la propiedad correcta del objeto data
-
-    const iconoAcceso = document.createElement('i');
-    iconoAcceso.className = 'bi bi-universal-access';
-    iconoAcceso.textContent = ` ${data.tipoTrabajo}`;  // Reemplaza con la propiedad correcta del objeto data
-
-    // Agregar elementos a la tarjeta
-    ubicacionCard.appendChild(iconoGeo);
-    ubicacionCard.appendChild(iconoAcceso);
-
-    cardBody.appendChild(tituloEmpresa);
-    cardBody.appendChild(fechaPublicacion);
-    cardBody.appendChild(tituloOferta);
-    cardBody.appendChild(descripcionOferta);
-    cardBody.appendChild(ubicacionCard);
-
-    nuevaTarjeta.appendChild(cardBody);
-
-    return nuevaTarjeta;
+// Función que maneja el evento click de los botones
+function handleMisPostulaciones(event) {
+    event.preventDefault();
+    window.location.href = '../postulaciones.html';
 }
 
 
-async function obtenerDatosDeOferta(uid) {
-    try {
-        const url = `http://localhost:8080/api/ofertas/${uid}`;
 
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
 
-        if (!response.ok) return null;
-
-        const data = await response.json();
-        return data;
-
-    } catch (error) {
-        return null;
-    }
-}
 
 function cargarDatosForm(usuario = '') {
     const nombreInput = document.getElementById('inputName');
@@ -201,7 +128,10 @@ document.querySelector('#img-user').addEventListener('click', () => {
 
 });
 
-
+// Función para el evento onload
+window.onload = function () {
+    obtenerInformacionUsuario();
+};
 
 // Función para el área de arrastrar y soltar
 const dropZone = document.getElementById('drop-area');
@@ -238,9 +168,7 @@ async function handleDrop(e) {
 }
 
 async function apiRequest(file) {
-
     try {
-
         showLoaderSpinner();
 
         const formData = new FormData();
@@ -305,6 +233,7 @@ fileInput.addEventListener('change', async function () {
 
     if (files.length > 0) {
         try {
+            console.log(files)
             await apiRequest(files[0]);
 
             hideLoader();
@@ -468,7 +397,7 @@ async function apiRequestUpdateProfile(userObj) {
             throw new Error(errorData.message);
         }
     } catch (error) {
-        console.error('Error en la solicitud de actualización de perfil:', error);
+        console.error('Error en la solicitud de actualización de perfil:', JSON.stringify(error));
         throw new Error('Error en la solicitud de actualización de perfil');
     }
 
@@ -508,4 +437,5 @@ function cerrarModal(e) {
     const modal = document.querySelector('#delteModal');
     modal.style.display = 'none';
 }
+
 

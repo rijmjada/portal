@@ -72,8 +72,6 @@ function obtenerDatos(params) {
 
 // Función para construir una tarjeta
 function construirTarjeta(oferta) {
-
-
     const colGet1 = document.getElementById('col-get-1');
     const colGet2 = document.getElementById('col-get-2');
 
@@ -95,7 +93,6 @@ function construirTarjeta(oferta) {
             </div>
         </div>
     `;
-
     targetColumn.appendChild(nuevaTarjeta);
 }
 

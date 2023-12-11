@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -19,24 +19,34 @@
     <header>
         <i class="bi bi-arrow-left-circle fs-2" id="goHome"></i>
         <img src="assets/logo-job.png" alt="" id="logo-job">
+        <i class="bi bi-moon-stars fs-5 text-white-50 pe-5" id="darkMode" style="position: relative; left: -35px;"></i>
     </header>
 
 
 
     <div class="container d-flex justify-content-center align-items-center" style="margin-top: 9vh;">
 
-        <div class="row ">
+        <div class="row">
 
             <!-- BTN -->
-            <div class="container d-none">
-                <div class="row" style="min-height: 60px;">
-                    <div class="col d-flex justify-content-center align-items-center gap-2"
-                        style="border-radius: 15px;">
-                        <div class="btn btn-warning text-dark-emphasis" id="btn-user-rol"></div>
+            <div class="d-flex justify-content-center align-items-center gap-2 bgda" id="btns-navigation">
+                <!-- BTN navv -->
+                <div class="row">
+                    <div class="col d-flex justify-content-center align-items-center gap-2">
+                        <div class="btn btn-outline-primary active" style="border-radius:  0 25px;"
+                            id="mi-perfil-page"> Mi
+                            usuario
+                        </div>
+
+                        <!-- Estos btns se cargan dinamicamente -->
+                        <div class="btn btn-outline-primary" style="border-radius:  0 25px;" id="btn-2"> empty </div>
+                        <div class="btn btn-outline-primary" style="border-radius:  0 25px;" id="btn-3"> empty </div>
                     </div>
                 </div>
             </div>
+            <!-- BTN -->
 
+            <!--COL 1 DATOS USUARIO-->
             <div class="col-sm-12 col-md-12 col-lg-6 p-5 text-center">
 
                 <div id="img-container">
@@ -82,7 +92,6 @@
                         <span class="sr-only"></span>
                     </div>
                     <span style="margin-left: 5px;"> Actualizando...</span>
-
                 </div>
                 <!-- END - SPINNER LOADER -->
 
@@ -170,24 +179,16 @@
                 </form>
 
             </div>
+            <!-- END COL 1 DATOS USUARIO-->
 
+            <!--COL 2 - IMG -->
             <div class="col-sm-12 col-md-12 col-lg-6 p-5 text-center mt-5" id="col-imgProfile">
                 <img src="./assets/profile.svg" alt="">
             </div>
+            <!--END COL 2 - IMG -->
 
-            <div class="col-sm-12 col-md-12 col-lg-6 p-5 text-center mt-5 d-none" id="col-tarjetasProfile">
 
-                <div class="row" id="col-tarjetas">
-                    <!-- Contenedor de tarjetas -->
-                </div>
 
-                <!-- Contenedor de paginación -->
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination" id="pagination">
-                        <!-- Aquí se generará la paginación dinámicamente -->
-                    </ul>
-                </nav>
-            </div>
 
         </div>
     </div>
