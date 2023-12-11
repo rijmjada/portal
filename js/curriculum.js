@@ -8,7 +8,7 @@ const textMessageReq = document.querySelector('#msg-inform-p');
 function mostrarCurriculums(usuario) {
     try {
         const contenedor = document.getElementById("detallesUsuario");
-        
+
         contenedor.innerHTML = '';
 
         if (usuario.curriculum.length >= 0) {
@@ -143,6 +143,8 @@ function showPreviewPdf(urlGuardada) {
 }
 
 async function borrarDocumento(icono, urlEliminar) {
+
+    const spinner = showSpinner('Procesando...');
     try {
         // Obtener el elemento padre (enlace) del ícono
         var listItem = icono.parentNode;
@@ -161,6 +163,9 @@ async function borrarDocumento(icono, urlEliminar) {
         }
     } catch (error) {
         sendMessageRequestToUserClient(message, true)
+    }
+    finally {
+        hideSpinner(spinner);
     }
 }
 
@@ -304,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
 //             const contenedor = document.getElementById("detallesUsuario");
 //             contenedor.innerHTML = '';
 
-//             showPreviewPdf(usuario.curriculum[0]); // carga el primer pdf 
+//             showPreviewPdf(usuario.curriculum[0]); // carga el primer pdf
 
 //             usuario.curriculum.forEach((url, index) => {
 
