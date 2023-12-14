@@ -92,7 +92,7 @@ function construirTarjetaPostulante(postulante) {
         <div class="card-body">
             <h5 class="card-title">${postulante.nombre} ${postulante.apellido}</h5>
             <p class="card-text">Correo: ${postulante.correo}</p>
-            <a href="${postulante.curriculum[0]}" target="_blank" class="btn btn-primary">Ver Curriculum</a>
+            <a href="${postulante.curriculum[0]}" download="Curriculum_${postulante.apellido}.pdf" class="btn btn-primary">Descargar Curriculum</a>
         </div>
     `;
 
