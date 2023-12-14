@@ -37,23 +37,27 @@ async function obtenerInformacionUsuario() {
 }
 
 function cargarBtnUserRol(rol) {
-
     const btn2 = document.querySelector('#btn-2');
     const btn3 = document.querySelector('#btn-3');
+    const btn4 = document.querySelector('#btn-4');
 
     if (rol === 'postulante') {
         cargarBtnsPostulante(btn2, btn3);
     }
     else if (rol === 'empresa') {
-        cargarBtnsEmpresa(btn2, btn3)
+        btn4.classList.toggle('d-none');
+        cargarBtnsEmpresa(btn2, btn3, btn4)
     }
 }
 
-function cargarBtnsEmpresa(btn2, btn3) {
-    btn2.textContent = 'Mi empresa';
-    btn3.textContent = 'Mis publicaciones';
+function cargarBtnsEmpresa(btn2, btn3, btn4) {
+    btn2.textContent = 'Datos Empresa';
+    btn3.textContent = 'Publicaciones';
+    btn4.textContent = 'Nuevo Oferta';
     btn2.addEventListener('click', handledatosEmpresa);
     btn3.addEventListener('click', handleMisPublicaciones);
+    btn4.addEventListener('click', handlePublicarAviso);
+
 }
 
 function cargarBtnsPostulante(btn2, btn3) {
@@ -61,6 +65,12 @@ function cargarBtnsPostulante(btn2, btn3) {
     btn3.textContent = 'Mi postulaciones';
     btn2.addEventListener('click', handleMiCv);
     btn3.addEventListener('click', handleMisPostulaciones);
+}
+
+// Función que maneja el evento click de los botones
+function handlePublicarAviso(event) {
+    event.preventDefault();
+    window.location.href = '../oferta.html';
 }
 
 // Función que maneja el evento click de los botones
@@ -86,9 +96,6 @@ function handleMisPostulaciones(event) {
     event.preventDefault();
     window.location.href = '../postulaciones.html';
 }
-
-
-
 
 
 function cargarDatosForm(usuario = '') {

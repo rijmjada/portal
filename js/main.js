@@ -81,6 +81,17 @@ function construirTarjeta(oferta) {
     const nuevaTarjeta = document.createElement('div');
     nuevaTarjeta.className = 'card my-2';
     nuevaTarjeta.style.height = '250px';
+
+
+    // Agrega el uid como atributo data
+    nuevaTarjeta.dataset.uid = oferta.uid;
+
+    // Agrega un evento de clic para redirigir
+    nuevaTarjeta.addEventListener('click', function () {
+        const uid = this.dataset.uid;
+        window.location.href = `detalles_oferta.html?oferta=${uid}`;
+    });
+    
     nuevaTarjeta.innerHTML = `
         <div class="card-body">
             <p id="titulo-empresa">${oferta.empresa}</p>

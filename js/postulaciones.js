@@ -198,3 +198,7 @@ document.querySelector('#darkMode').addEventListener('click', () => {
         iconDarkOrSun.classList.remove('bi-sun');
     }
 });
+
+document.querySelector('#goHome').addEventListener('click', () => {
+    window.location.href = '../index.html';
+});

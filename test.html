@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Dinámica</title>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px;
+            width: 300px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <!-- Contenedor para las tarjetas -->
+    <div id="card-container"></div>
+
+
+    <script>
+        const usuario = {
+            "ofertasAplicadas": [
+                "657b62e75634a42cf0a247b4"
+            ],
+            "curriculum": [
+                "https://res.cloudinary.com/dgqnoeibf/image/upload/v1702340220/Nest-cheatsheet.pdf"
+            ],
+            "estado": true,
+            "google": false,
+            "__t": "Postulante",
+            "nombre": "Romina",
+            "apellido": "romina",
+            "correo": "romina@romina.com",
+            "rol": "postulante",
+            "uid": "657b6f2c5634a42cf0a24aef"
+        };
+
+        // Función para construir la tarjeta
+        function construirTarjeta(usuario) {
+            const cardContainer = document.getElementById('card-container');
+
+            // Crear la tarjeta
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            // Añadir contenido a la tarjeta
+            card.innerHTML = `
+            <h2>${usuario.nombre} ${usuario.apellido}</h2>
+            <p>Correo: ${usuario.correo}</p>
+            <p>Curriculum: <a href="${usuario.curriculum[0]}" target="_blank">Ver Curriculum</a></p>
+        `;
+
+            // Agregar la tarjeta al contenedor
+            cardContainer.appendChild(card);
+        }
+
+        // Llamar a la función para construir la tarjeta
+        construirTarjeta(usuario);
+    </script>
+</body>
+
+</html>

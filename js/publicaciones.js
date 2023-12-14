@@ -104,6 +104,16 @@ function construirTarjeta(oferta) {
 
     const nuevaTarjeta = document.createElement('div');
     nuevaTarjeta.className = 'col-lg-4 col-md-6 col-12 ';
+
+    // Agrega el uid como atributo data
+    nuevaTarjeta.dataset.uid = oferta.uid;
+
+    // Agrega un evento de clic para redirigir
+    nuevaTarjeta.addEventListener('click', function () {
+        const uid = this.dataset.uid;
+        window.location.href = `detalles_publicacion.html?oferta=${uid}`;
+    });
+    
     nuevaTarjeta.innerHTML = `
         <div class="card my-2" style="height: 250px;">
             <div class="card-body">
@@ -162,3 +172,22 @@ function hideSpinner(spinner) {
         spinner.classList.add('d-none');
     }, 500);
 }
+
+document.querySelector('#btn-perfil').addEventListener('click', () => {
+    window.location.href = '../perfil.html';
+});
+
+document.querySelector('#btn-datos-empresa').addEventListener('click', () => {
+    window.location.href = '../empresa.html';
+});
+
+document.querySelector('#btn-publicaciones').addEventListener('click', () => {
+    window.location.href = '../publicaciones.html';
+});
+
+document.querySelector('#btn-nueva-oferta').addEventListener('click', () => {
+    window.location.href = '../oferta.html';
+});
+document.querySelector('#goHome').addEventListener('click', () => {
+    window.location.href = '../index.html';
+});
