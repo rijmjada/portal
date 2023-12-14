@@ -63,14 +63,13 @@ function obtenerDatosDeUsuarioInputs() {
         usuario.razonSocial = document.getElementById('razon-social').value;
         usuario.direccion = document.getElementById('direccion').value;
         usuario.telefono = document.getElementById('telefono').value;
+        usuario.sector = document.getElementById('selectSector').value;
+        usuario.numero_trabajadores = document.getElementById('cantidadTrabajadores').value;
         usuario.rol = 'empresa';
     }
 
     return usuario;
 }
-
-
-
 
 async function apiRequestRegister(objUser) {
     const usuario = objUser;

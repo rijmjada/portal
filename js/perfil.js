@@ -65,7 +65,8 @@ function cargarBtnsPostulante(btn2, btn3) {
 
 // Función que maneja el evento click de los botones
 function handledatosEmpresa(event) {
-    alert('Mi handledatosEmpresa');
+    event.preventDefault();
+    window.location.href = '../empresa.html';
 }
 
 // Función que maneja el evento click de los botones

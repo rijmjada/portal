@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="./css/perfil.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Lexend Deca', sans-serif;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        <i class="bi bi-arrow-left-circle fs-2" id="goHome"></i>
+        <img src="assets/logo-job.png" alt="" id="logo-job">
+        <i class="bi bi-moon-stars fs-5 text-white-50 pe-5" id="darkMode" style="position: relative; left: -35px;"></i>
+    </header>
+
+    <!-- SPINNER LOADER -->
+    <div class="loader-container d-none">
+        <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+        </div>
+        <span style="margin-left: 5px;" id="message-spinner"> Actualizando...</span>
+    </div>
+    <!-- END - SPINNER LOADER -->
+
+    <div class="container" style="margin-top: 80px;">
+
+        <!-- BTN navv -->
+        <div class="row">
+            <div class="col d-flex justify-content-center align-items-center gap-2">
+
+                <div class="btn btn-outline-primary " style="border-radius:  0 25px;" id="mi-perfil-page"> Mi usuario
+                </div>
+
+                <div class="btn btn-outline-primary active" style="border-radius:  0 25px;" id="mi-empresa-page"> Mi
+                    empresa
+                </div>
+
+                <div class="btn btn-outline-primary " style="border-radius:  0 25px;" id="mi-publicaciones-page">
+                    Mis
+                    publicaciones
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container d-flex justify-content-center my-5 ">
+        <form class="row  my-5 p-3 " onsubmit=" actualizarPerfil(event)" style="max-width: 70%;">
+
+            <div class="col-md-6 my-2 col-12">
+                <label for="inputName" class="form-label"> Nombre: </label>
+                <input type="text" class="form-control" id="inputName" required>
+            </div>
+
+            <div class="col-md-6 my-2 col-12">
+                <label for="inputRazonSocial" class="form-label"> Razon Social:</label>
+                <input type="text" class="form-control" id="inputRazonSocial" required>
+            </div>
+
+
+            <div class="col-md-6 my-2 col-12">
+                <label for="inputDireccion" class="form-label"> Dirección: </label>
+                <input type="text" class="form-control" id="inputDireccion" required>
+            </div>
+
+            <!-- <div class="col-md-6 col-12 ">
+                <div class="form-group ">
+                    <label for="selecSector" class="form-label">Provincia:</label>
+                    <select class="form-control border-black" id="selecSector" onchange="cargarLocalidades()">
+                        <option selected disabled>Selecciona una provincia</option>
+                        <option value="Capital Federal">Capital Federal</option>
+                        <option value="Buenos Aires">Buenos Aires</option>
+                        <option value="Buenos Aires-GBA">Buenos Aires-GBA</option>
+                        <option value="Catamarca">Catamarca</option>
+                        <option value="Córdoba">Córdoba</option>
+                        <option value="Corrientes">Corrientes</option>
+                        <option value="Chaco">Chaco</option>
+                        <option value="Chubut">Chubut</option>
+                        <option value="Entre Río">Entre Ríos</option>
+                        <option value="Formosa">Formosa</option>
+                        <option value="Jujuy">Jujuy</option>
+                        <option value="La Pampa">La Pampa</option>
+                        <option value="La Rioja">La Rioja</option>
+                        <option value="Mendoza">Mendoza</option>
+                        <option value="Misiones">Misiones</option>
+                        <option value="Neuquén">Neuquén</option>
+                        <option value="Río Negro">Río Negro</option>
+                        <option value="Salta">Salta</option>
+                        <option value="San Juan">San Juan</option>
+                        <option value="San Luis">San Luis</option>
+                        <option value="Santa Cruz">Santa Cruz</option>
+                        <option value="Santa Fe">Santa Fe</option>
+                        <option value="Santiago del Estero">Santiago del Estero</option>
+                        <option value="Tierra del Fuego">Tierra del Fuego</option>
+                        <option value="Tucumán">Tucumán</option>
+                    </select>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-12">
+                <div class="form-group">
+                    <label for="selectLocalidad" class="form-label">Localidad:</label>
+                    <select class="form-control border-black" id="selectLocalidad">
+                    </select>
+                </div>
+            </div> -->
+
+
+            <div class="col-md-6 my-2 col-12 ">
+                <div class="form-group ">
+                    <label for="selectSector" class="form-label">Sector:</label>
+                    <select class="form-control border-black" id="selectSector">
+                        <option selected disabled>Seleccioná el sector</option>
+                        <option value="1">Agricultura / Pesca / Ganadería</option>
+                        <option value="2">Construcción / obras</option>
+                        <option value="3">Educación</option>
+                        <option value="4">Energía</option>
+                        <option value="5">Entretenimiento / Deportes</option>
+                        <option value="6">Fabricación</option>
+                        <option value="7">Finanzas / Banca</option>
+                        <option value="8">Gobierno / No Lucro</option>
+                        <option value="9">Hostelería / Turismo</option>
+                        <option value="10">Informática / Hardware</option>
+                        <option value="11">Informática / Software</option>
+                        <option value="12">Internet</option>
+                        <option value="13">Legal / Asesoría</option>
+                        <option value="14">Materias Primas</option>
+                        <option value="15">Medios de Comunicación</option>
+                        <option value="16">Publicidad / RRPP</option>
+                        <option value="17">RRHH / Personal</option>
+                        <option value="18">Salud / Medicina</option>
+                        <option value="19">Servicios Profesionales</option>
+                        <option value="20">Telecomunicaciones</option>
+                        <option value="21">Transporte</option>
+                        <option value="22">Venta al consumidor</option>
+                        <option value="23">Venta al por mayor</option>
+                    </select>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6 my-2 col-12">
+                <label for="inputTelefono" class="form-label"> Teléfono: </label>
+                <input type="text" class="form-control" id="inputTelefono" required>
+            </div>
+
+
+            <div class="col-md-6  my-2 col-12 ">
+                <div class="form-group ">
+                    <label for="selecSector" class="form-label">Numero de trabajores:</label>
+                    <select class="form-control border-black" id="cantidadTrabajadores">
+                        <option selected disabled> Seleccioná el rango </option>
+                        <option value="1">De 1 a 10 trabajadores</option>
+                        <option value="2">De 11 a 50 trabajadores</option>
+                        <option value="3">De 51 a 200 trabajadores</option>
+                        <option value="4">De 201 a 500 trabajadores</option>
+                        <option value="5">De 501 a 1000 trabajadores</option>
+                        <option value="6">Más de 1000 trabajadores</option>
+                    </select>
+                    </select>
+                </div>
+            </div>
+
+
+            <!-- MESSAGE INFORM REQUEST -->
+            <div id="msg-inform-request" class="d-none my-5">
+                <p id="msg-inform-p"></p>
+            </div>
+
+            <div class="col-12 d-flex justify-content-center align-items-center" style="margin-top: 100px;">
+                <div class="btn btn-success">
+                    Actualizar
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+        </script>
+
+    <script src="./js/empresa.js"></script>
+</body>
+
+</html>
