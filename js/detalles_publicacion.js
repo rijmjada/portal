@@ -20,6 +20,12 @@ async function obtenerDataPublicacion(uid) {
     }
 }
 
+function formatearFecha(fecha) {
+    const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+    return new Date(fecha).toLocaleDateString(undefined, options);
+}
+
+
 function cargarDatosPublicacion(data) {
     const descripcion = document.querySelector('#descripcion');
     // Reemplazar saltos de línea con etiquetas <br>
@@ -28,12 +34,13 @@ function cargarDatosPublicacion(data) {
 
     document.querySelector('#puesto').textContent = data.titulo;
     document.querySelector('#empresa').textContent = data.empresa;
-    document.querySelector('#fecha-publicacion').textContent = data.fechaCreacion;
+
+    const fechaFormateada = formatearFecha(data.fechaCreacion);
+    document.querySelector('#fecha-publicacion').textContent = fechaFormateada;
+
     document.querySelector('#ubicacion').textContent = data.ubicacion;
     document.querySelector('#modalidad').textContent = data.modalidad;
     document.querySelector('#salario').textContent = '$' + data.salario;
-
-
 }
 
 
@@ -92,9 +99,24 @@ function construirTarjetaPostulante(postulante) {
         <div class="card-body">
             <h5 class="card-title">${postulante.nombre} ${postulante.apellido}</h5>
             <p class="card-text">Correo: ${postulante.correo}</p>
-            <a href="${postulante.curriculum[0]}" download="Curriculum_${postulante.apellido}.pdf" class="btn btn-primary">Descargar Curriculum</a>
+            <button class="btn btn-primary" onclick="descargarCurriculum('${postulante.curriculum[0]}', '${postulante.apellido}')">Descargar Curriculum</button>
         </div>
     `;
 
     contenedorPostulantes.appendChild(nuevaTarjeta);
 }
+
+async function descargarCurriculum(url, apellido) {
+    try {
+        const response = await fetch(url);
+        const data = await response.blob();
+
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(data);
+        link.download = `Curriculum_${apellido}.pdf`;
+        link.click();
+    } catch (error) {
+        console.error('Error al descargar el curriculum:', error);
+    }
+}
+

@@ -1,4 +1,3 @@
-
 let USER_DATA = '';
 let UID_OFERTA = '';
 
@@ -18,9 +17,9 @@ function hideSpinner(spinner) {
 
 function parseJwt(token) {
     let base64Url = token.split('.')[1];
-    let base64 = base64Url.replace('-', '+').replace('_', '/', '');
+    let base64 = base64Url.replace('-', '+').replace('_', '/');
     return JSON.parse(window.atob(base64));
-};
+}
 
 async function obtenerInformacionUsuario() {
     try {
@@ -45,21 +44,22 @@ async function obtenerInformacionUsuario() {
         const { usuario } = await response.json();
         USER_DATA = usuario;
         await chequearTipoDeUsuario(USER_DATA);
-        console.log(USER_DATA)
+        console.log(USER_DATA);
     } catch (error) {
         console.log(`Error al obtener información del usuario: ${error.message}`);
     }
 }
 
 async function chequearTipoDeUsuario(usuario) {
+    const btn_accion_oferta = document.querySelector('#btn-accion-oferta');
+    const message_disabled = document.querySelector('#message_disabled');
+
     if (usuario.rol === 'empresa') {
         btn_accion_oferta.classList.add('btn-danger');
         btn_accion_oferta.classList.remove('disabled');
         btn_accion_oferta.textContent = 'Eliminar oferta';
-        const message_disabled = document.querySelector('#message_disabled');
 
         const estado = await chequearEstadoDeOferta(UID_OFERTA);
-
 
         // Verificar si la oferta fue publicada por el usuario actual
         if (usuario.ofertasPublicadas.includes(UID_OFERTA)) {
@@ -70,23 +70,19 @@ async function chequearTipoDeUsuario(usuario) {
                     eliminarOferta(); // Debes definir la función eliminarOferta según tus necesidades
                 });
             } else {
-                document.querySelector('#message_disabled');
                 // La oferta no fue publicada por el usuario actual, puedes mostrar un mensaje o deshabilitar el botón, según tus necesidades
                 btn_accion_oferta.classList.add('disabled');
                 message_disabled.classList.toggle('d-none');
-                message_disabled.textContent = 'Esta oferta ya no esta disponible';
+                message_disabled.textContent = 'Esta oferta ya no está disponible';
             }
-
         } else {
-            document.querySelector('#message_disabled');
             // La oferta no fue publicada por el usuario actual, puedes mostrar un mensaje o deshabilitar el botón, según tus necesidades
             btn_accion_oferta.classList.add('disabled');
             btn_accion_oferta.textContent = 'Postularme';
             message_disabled.classList.toggle('d-none');
             message_disabled.textContent = 'No puedes postularte con una cuenta de empresa';
         }
-    }
-    else  {
+    } else {
         btn_accion_oferta.classList.remove('disabled');
         btn_accion_oferta.textContent = 'Postularme';
 
@@ -96,25 +92,8 @@ async function chequearTipoDeUsuario(usuario) {
     }
 }
 
-const btn_accion_oferta = document.querySelector('#btn-accion-oferta');
-
-document.addEventListener('DOMContentLoaded', function () {
-    const spinner = showSpinner(`Cargando...`);
-
-    // Obtener el uid de la URL
-    const urlParams = new URLSearchParams(window.location.search);
-    UID_OFERTA = urlParams.get('oferta');
-    obtenerInformacionUsuario();
-    console.log(UID_OFERTA);
-    hideSpinner(spinner);
-});
-
-document.querySelector('#goHome').addEventListener('click', () => {
-    window.location.href = '../index.html';
-});
-
 async function eliminarOferta() {
-    const url = `http://localhost:8080/api/ofertas/${UID_OFERTA}`
+    const url = `http://localhost:8080/api/ofertas/${UID_OFERTA}`;
     try {
         // Obtener el token del localStorage
         const token = localStorage.getItem('x-token');
@@ -139,7 +118,6 @@ async function eliminarOferta() {
 }
 
 async function chequearEstadoDeOferta(uid) {
-
     const url = `http://localhost:8080/api/ofertas/${uid}`;
 
     try {
@@ -151,7 +129,7 @@ async function chequearEstadoDeOferta(uid) {
 
         const data = await response.json();
 
-        console.log(data.estado)
+        console.log(data.estado);
         return data.estado;
 
     } catch (error) {
@@ -180,12 +158,68 @@ async function postularse() {
 
         if (!response.ok) {
             console.log(`Error en la solicitud: ${response.status}`);
-        }
-        else {
-            console.log( await response.json())
+        } else {
+            console.log(await response.json());
         }
 
     } catch (error) {
         console.log('todok' + error);
     }
 }
+
+async function obtenerDataPublicacion(uid) {
+    const url = `http://localhost:8080/api/ofertas/${uid}`;
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            console.log(`Error en la solicitud: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        cargarDatosPublicacion(data);
+
+    } catch (error) {
+        console.log(`Error al obtener información del usuario: ${error.message}`);
+    }
+}
+
+function cargarDatosPublicacion(data) {
+    const descripcion = document.querySelector('#descripcion');
+    // Reemplazar saltos de línea con etiquetas <br>
+    const textoConBr = data.descripcion.replace(/\n/g, '<br>');
+    descripcion.innerHTML = textoConBr;
+
+    document.querySelector('#puesto').textContent = data.titulo;
+    document.querySelector('#empresa').textContent = data.empresa;
+
+    const fechaFormateada = formatearFecha(data.fechaCreacion);
+    document.querySelector('#fecha-publicacion').textContent = fechaFormateada;
+
+    document.querySelector('#ubicacion').textContent = data.ubicacion;
+    document.querySelector('#modalidad').textContent = data.modalidad;
+    document.querySelector('#salario').textContent = '$' + data.salario;
+}
+
+function formatearFecha(fecha) {
+    const opciones = { day: 'numeric', month: 'numeric', year: 'numeric' };
+    return new Date(fecha).toLocaleDateString('es-ES', opciones);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const spinner = showSpinner(`Cargando...`);
+
+    // Obtener el uid de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    UID_OFERTA = urlParams.get('oferta');
+    obtenerInformacionUsuario();
+    obtenerDataPublicacion(UID_OFERTA);
+    console.log(UID_OFERTA);
+
+    hideSpinner(spinner);
+});
+
+document.querySelector('#goHome').addEventListener('click', () => {
+    window.location.href = '../index.html';
+});
