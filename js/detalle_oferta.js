@@ -86,7 +86,7 @@ async function chequearTipoDeUsuario(usuario) {
             message_disabled.textContent = 'No puedes postularte con una cuenta de empresa';
         }
     }
-    else if (usuario.rol === 'postulante') {
+    else  {
         btn_accion_oferta.classList.remove('disabled');
         btn_accion_oferta.textContent = 'Postularme';
 
