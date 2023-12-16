@@ -1,4 +1,7 @@
 
+import { showSpinner, hideSpinner } from './spinner.js';
+
+
 const URL = 'https://service-job-node.onrender.com/'
 
 // Limpiar las cards
@@ -91,7 +94,7 @@ function construirTarjeta(oferta) {
         const uid = this.dataset.uid;
         window.location.href = `detalles_oferta.html?oferta=${uid}`;
     });
-    
+
     nuevaTarjeta.innerHTML = `
         <div class="card-body">
             <p id="titulo-empresa">${oferta.empresa}</p>
@@ -262,17 +265,4 @@ function realizarBusqueda() {
         });
 }
 
-function showSpinner(msg) {
-    const spinner = document.querySelector('.loader-container');
-    const message = document.querySelector('#message-spinner');
-    message.textContent = msg;
-    spinner.classList.remove('d-none');
-    return spinner;
-}
 
-function hideSpinner(spinner) {
-    // Ocultar el spinner después de 5 segundos
-    setTimeout(function () {
-        spinner.classList.add('d-none');
-    }, 500);
-}
