@@ -262,10 +262,10 @@ function realizarBusqueda() {
         });
 }
 
-function showSpinner(message) {
+function showSpinner(msg) {
     const spinner = document.querySelector('.loader-container');
     const message = document.querySelector('#message-spinner');
-    message.textContent = message;
+    message.textContent = msg;
     spinner.classList.remove('d-none');
     return spinner;
 }
