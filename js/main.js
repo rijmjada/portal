@@ -138,7 +138,6 @@ function parseJwt(token) {
 };
 
 
-
 function verificarAutenticacion() {
     // Obtener el token del localStorage
     const token = localStorage.getItem('x-token');
@@ -229,10 +228,8 @@ function cerrarSesion() {
 
 // Llamar a ambas funciones cuando la página se carga
 window.onload = function () {
-    const spinner  = showSpinner(`Cargando...`);
     obtenerDatos();
     verificarAutenticacion();
-    hideSpinner(spinner);
 };
 
 
@@ -261,17 +258,4 @@ function realizarBusqueda() {
         .catch(error => {
             console.error('Error al realizar la solicitud:', error);
         });
-}
-
-function showSpinner() {
-    const spinner = document.querySelector('.loader-container');
-    spinner.classList.remove('d-none');
-    return spinner;
-}
-
-function hideSpinner(spinner) {
-    // Ocultar el spinner después de 5 segundos
-    setTimeout(function () {
-        spinner.classList.add('d-none');
-    }, 300);
 }
