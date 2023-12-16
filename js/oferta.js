@@ -1,6 +1,4 @@
 
-import { showSpinner, hideSpinner } from './spinner.js';
-
 let USER_DATA = '';
 const URL_PUBLICAR_OFERTA = 'https://service-job-node.onrender.com/api/ofertas/';
 
@@ -101,6 +99,20 @@ function parseJwt(token) {
     let base64 = base64Url.replace('-', '+').replace('_', '/', '');
     return JSON.parse(window.atob(base64));
 };
+
+function showSpinner(message) {
+    document.querySelector('#message-spinner').textContent = message;
+    const spinner = document.querySelector('.loader-container');
+    spinner.classList.remove('d-none');
+    return spinner;
+}
+
+function hideSpinner(spinner) {
+    // Ocultar el spinner después de 5 segundos
+    setTimeout(function () {
+        spinner.classList.add('d-none');
+    }, 500);
+}
 
 
 document.addEventListener('DOMContentLoaded', async function () {

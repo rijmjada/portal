@@ -1,8 +1,4 @@
-
-import { showSpinner, hideSpinner } from './spinner.js';
-
-
-const URL = 'https://service-job-node.onrender.com/';
+const URL = 'https://service-job-node.onrender.com/'
 
 
 function loginFormSubmit() {
@@ -61,11 +57,14 @@ function loginFormSubmit() {
         });
 }
 
+
+
+
 function handleCredentialResponse(response) {
 
     const body = { id_token: response.credential }
 
-    fetch(`${URL}api/auth/google`, {
+    fetch('http://localhost:8080/api/auth/google', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -84,8 +83,8 @@ function handleCredentialResponse(response) {
 }
 
 const btnSignOut = document.querySelector('#google_signOut');
-
 btnSignOut.addEventListener('click', async () => {
+
     console.log(google.accounts.id)
     google.accounts.id.disableAutoSelect()
     google.accounts.id.revoke(localStorage.getItem('email'), done => {
@@ -94,6 +93,8 @@ btnSignOut.addEventListener('click', async () => {
         location.reload()
     });
 });
+
+
 
 
 document.querySelector('#goHome').addEventListener('click', () => {

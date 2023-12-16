@@ -139,7 +139,6 @@ function sendMessageRequestToUserClient(message, errors) {
     }, 1500);
 }
 
-
 function toggleEmpresaForm() {
     let checkbox = document.getElementById('registrar_empresa');
     let formFields = document.querySelectorAll('#form_empresa_content input');

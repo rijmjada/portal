@@ -138,7 +138,9 @@ document.querySelector('#img-user').addEventListener('click', () => {
 
 // Función para el evento onload
 window.onload = function () {
+    const spinner = showSpinner('Cargando...');
     obtenerInformacionUsuario();
+    hideSpinner(spinner);
 };
 
 // Función para el área de arrastrar y soltar
