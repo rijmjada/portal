@@ -1,3 +1,5 @@
+import { showSpinner, hideSpinner } from './spinner.js';
+
 const URL = 'https://service-job-node.onrender.com/';
 
 
@@ -7,7 +9,6 @@ document.querySelector('#goHome').addEventListener('click', () => {
 
 const boxMessageRequest = document.querySelector('#msg-inform-request');
 const textMessageReq = document.querySelector('#msg-inform-p');
-
 
 
 async function handleFormSubmit(e) {

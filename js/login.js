@@ -1,3 +1,7 @@
+
+import { showSpinner, hideSpinner } from './spinner.js';
+
+
 const URL = 'https://service-job-node.onrender.com/';
 
 
@@ -57,9 +61,6 @@ function loginFormSubmit() {
         });
 }
 
-
-
-
 function handleCredentialResponse(response) {
 
     const body = { id_token: response.credential }
@@ -83,8 +84,8 @@ function handleCredentialResponse(response) {
 }
 
 const btnSignOut = document.querySelector('#google_signOut');
-btnSignOut.addEventListener('click', async () => {
 
+btnSignOut.addEventListener('click', async () => {
     console.log(google.accounts.id)
     google.accounts.id.disableAutoSelect()
     google.accounts.id.revoke(localStorage.getItem('email'), done => {
@@ -93,8 +94,6 @@ btnSignOut.addEventListener('click', async () => {
         location.reload()
     });
 });
-
-
 
 
 document.querySelector('#goHome').addEventListener('click', () => {

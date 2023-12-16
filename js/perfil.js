@@ -1,4 +1,6 @@
 
+import { showSpinner, hideSpinner } from './spinner.js';
+
 let USER_UID = '';
 let USER_DATA = '';
 let URL_CARGAR_IMG = 'https://service-job-node.onrender.com/api/upload/imagen/';
@@ -316,18 +318,7 @@ async function handleProfileUpdate(userObj) {
     }
 }
 
-function showSpinner() {
-    const spinner = document.querySelector('.loader-container');
-    spinner.classList.remove('d-none');
-    return spinner;
-}
 
-function hideSpinner(spinner) {
-    // Ocultar el spinner después de 5 segundos
-    setTimeout(function () {
-        spinner.classList.add('d-none');
-    }, 1500);
-}
 
 function messageErrorCheckPassword(message) {
     let parrafo = document.querySelector('#msg-inform-p');

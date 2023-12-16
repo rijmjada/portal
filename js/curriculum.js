@@ -1,3 +1,5 @@
+import { showSpinner, hideSpinner } from './spinner.js';
+
 
 let USER_DATA = '';
 const URL = 'https://service-job-node.onrender.com/';
@@ -243,19 +245,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
 
-function showSpinner(message) {
-    document.querySelector('#message-spinner').textContent = message;
-    const spinner = document.querySelector('.loader-container');
-    spinner.classList.remove('d-none');
-    return spinner;
-}
-
-function hideSpinner(spinner) {
-    // Ocultar el spinner después de 5 segundos
-    setTimeout(function () {
-        spinner.classList.add('d-none');
-    }, 500);
-}
 
 /** Btns redirect */
 document.querySelector('#mi-postulaciones-page').addEventListener('click', () => {
