@@ -262,8 +262,10 @@ function realizarBusqueda() {
         });
 }
 
-function showSpinner() {
+function showSpinner(message) {
     const spinner = document.querySelector('.loader-container');
+    const message = document.querySelector('#message-spinner');
+    message.textContent = message;
     spinner.classList.remove('d-none');
     return spinner;
 }
