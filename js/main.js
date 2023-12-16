@@ -1,5 +1,5 @@
 
-const URL = 'http://localhost:8080/'
+const URL = 'https://service-job-node.onrender.com/'
 
 // Limpiar las cards
 function limpiarDivs() {
@@ -138,67 +138,6 @@ function parseJwt(token) {
 };
 
 
-// Función para verificar si el usuario está autenticado
-// function verificarAutenticacion() {
-
-
-//     // Obtener el token del localStorage
-//     const token = localStorage.getItem('x-token');
-
-//     // Si no hay un token, el usuario no está autenticado
-//     if (!token) {
-//         // Mostrar los botones de "Crear cuenta" e "Ingresar"
-//         document.querySelector('#CrearCuenta').classList.remove('visually-hidden');
-//         document.querySelector('#Ingresar').classList.remove('visually-hidden');
-//         return;
-//     }
-
-//     const { uid } = parseJwt(token);
-//     console.log(uid)
-
-//     // Realizar una solicitud GET para obtener la información del usuario
-//     fetch(`http://localhost:8080/api/usuarios/${uid}`, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//     })
-//         .then(resp => {
-//             // Verificar si la solicitud fue exitosa (código de estado 2xx)
-//             if (!resp.ok) {
-//                 throw new Error(`Error en la solicitud: ${resp.status}`);
-//             }
-//             return resp.json();
-//         })
-//         .then(resp => {
-//             // Obtener el nombre del usuario desde la respuesta
-//             const nombreUsuario = resp.usuario.nombre;
-
-//             // Crear un elemento de párrafo con el nombre del usuario
-//             const textoUsuario = document.createTextNode(`Hola, ${nombreUsuario}`);
-//             const parrafoUsuario = document.createElement('p');
-//             parrafoUsuario.id = 'nombre-usuario-loging';
-//             parrafoUsuario.appendChild(textoUsuario);
-
-//             // Agregar el párrafo al contenedor de la barra de navegación
-//             const navbarNav = document.getElementById('navbarNav');
-//             navbarNav.innerHTML = ''; // Limpiar el contenido existente
-//             navbarNav.appendChild(parrafoUsuario);
-
-//             // Agregar un botón para cerrar sesión
-//             const botonCerrarSesion = document.createElement('button');
-//             botonCerrarSesion.className = 'btn btn-outline-danger';
-//             botonCerrarSesion.textContent = 'Cerrar Sesión';
-//             botonCerrarSesion.addEventListener('click', cerrarSesion);
-
-//             // Agregar el botón al contenedor de la barra de navegación
-//             navbarNav.appendChild(botonCerrarSesion);
-//         })
-//         .catch(error => {
-//             console.warn(`Error al obtener información del usuario: ${error.message}`);
-//             // Manejar el error según tus necesidades (puedes redirigir a la página de inicio de sesión, por ejemplo)
-//         });
-// }
 
 function verificarAutenticacion() {
     // Obtener el token del localStorage
@@ -215,7 +154,7 @@ function verificarAutenticacion() {
     const { uid } = parseJwt(token);
 
     // Realizar una solicitud GET para obtener la información del usuario
-    fetch(`http://localhost:8080/api/usuarios/${uid}`, {
+    fetch(`${URL}api/usuarios/${uid}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -290,8 +229,10 @@ function cerrarSesion() {
 
 // Llamar a ambas funciones cuando la página se carga
 window.onload = function () {
+    const spinner  = showSpinner(`Cargando...`);
     obtenerDatos();
     verificarAutenticacion();
+    hideSpinner(spinner);
 };
 
 
@@ -320,4 +261,17 @@ function realizarBusqueda() {
         .catch(error => {
             console.error('Error al realizar la solicitud:', error);
         });
+}
+
+function showSpinner() {
+    const spinner = document.querySelector('.loader-container');
+    spinner.classList.remove('d-none');
+    return spinner;
+}
+
+function hideSpinner(spinner) {
+    // Ocultar el spinner después de 5 segundos
+    setTimeout(function () {
+        spinner.classList.add('d-none');
+    }, 300);
 }

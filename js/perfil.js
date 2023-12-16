@@ -1,7 +1,7 @@
 
 let USER_UID = '';
 let USER_DATA = '';
-let URL_CARGAR_IMG = 'http://localhost:8080/api/upload/imagen/';
+let URL_CARGAR_IMG = 'https://service-job-node.onrender.com/api/upload/imagen/';
 
 
 async function obtenerInformacionUsuario() {
@@ -11,7 +11,7 @@ async function obtenerInformacionUsuario() {
 
         const { uid } = parseJwt(token);
 
-        const response = await fetch(`http://localhost:8080/api/usuarios/${uid}`, {
+        const response = await fetch(`https://service-job-node.onrender.com/api/usuarios/${uid}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -123,7 +123,6 @@ document.querySelector('#goHome').addEventListener('click', () => {
 });
 
 
-
 document.querySelector('#img-user').addEventListener('mouseover', () => {
     document.querySelector('#icon-upload-img').classList.toggle('d-none');
 });
@@ -133,7 +132,6 @@ document.querySelector('#img-user').addEventListener('mouseout', () => {
 });
 
 document.querySelector('#img-user').addEventListener('click', () => {
-
 });
 
 // Función para el evento onload
@@ -354,7 +352,7 @@ async function checkPassword(password) {
 
         formData.append('password', password);
 
-        const response = await fetch(`http://localhost:8080/api/usuarios/checkPass/${uid}`, {
+        const response = await fetch(`https://service-job-node.onrender.com/api/usuarios/checkPass/${uid}`, {
             method: 'PUT',
             body: formData,
             headers: {
@@ -388,7 +386,7 @@ async function apiRequestUpdateProfile(userObj) {
         formData.append('apellido', userObj.apellido);
         formData.append('correo', userObj.correo);
 
-        const response = await fetch(`http://localhost:8080/api/usuarios/${uid}`, {
+        const response = await fetch(`https://service-job-node.onrender.com/api/usuarios/${uid}`, {
             method: 'PUT',
             body: formData,
             headers: {

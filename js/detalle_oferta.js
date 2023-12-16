@@ -1,5 +1,7 @@
 let USER_DATA = '';
 let UID_OFERTA = '';
+const URL = 'https://service-job-node.onrender.com/';
+
 
 function showSpinner(message) {
     document.querySelector('#message-spinner').textContent = message;
@@ -28,7 +30,7 @@ async function obtenerInformacionUsuario() {
 
         const { uid } = parseJwt(token);
 
-        const response = await fetch(`http://localhost:8080/api/usuarios/${uid}`, {
+        const response = await fetch(`${URL}api/usuarios/${uid}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -93,7 +95,7 @@ async function chequearTipoDeUsuario(usuario) {
 }
 
 async function eliminarOferta() {
-    const url = `http://localhost:8080/api/ofertas/${UID_OFERTA}`;
+    const url = `${URL}api/ofertas/${UID_OFERTA}`;
     try {
         // Obtener el token del localStorage
         const token = localStorage.getItem('x-token');
@@ -118,7 +120,7 @@ async function eliminarOferta() {
 }
 
 async function chequearEstadoDeOferta(uid) {
-    const url = `http://localhost:8080/api/ofertas/${uid}`;
+    const url = `${URL}api/ofertas/${uid}`;
 
     try {
         const response = await fetch(url);
@@ -139,7 +141,7 @@ async function chequearEstadoDeOferta(uid) {
 
 async function postularse() {
     const { uid } = USER_DATA;
-    const url = `http://localhost:8080/api/usuarios/${uid}`;
+    const url = `${URL}api/usuarios/${uid}`;
 
     try {
         // Obtener el token del localStorage
@@ -168,7 +170,7 @@ async function postularse() {
 }
 
 async function obtenerDataPublicacion(uid) {
-    const url = `http://localhost:8080/api/ofertas/${uid}`;
+    const url = `${URL}api/ofertas/${uid}`;
     try {
         const response = await fetch(url);
 

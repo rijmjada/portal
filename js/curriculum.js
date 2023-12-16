@@ -1,5 +1,7 @@
 
 let USER_DATA = '';
+const URL = 'https://service-job-node.onrender.com/';
+
 
 const boxMessageRequest = document.querySelector('#msg-inform-request');
 const textMessageReq = document.querySelector('#msg-inform-p');
@@ -113,7 +115,7 @@ async function obtenerInformacionUsuario() {
 
         const { uid } = parseJwt(token);
 
-        const response = await fetch(`http://localhost:8080/api/usuarios/${uid}`, {
+        const response = await fetch(`${URL}api/usuarios/${uid}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -172,7 +174,7 @@ async function borrarDocumento(icono, urlEliminar) {
 
 async function eliminarCurriculum(urlEliminar) {
     try {
-        const response = await fetch(`http://localhost:8080/api/upload/curriculum/${USER_DATA.uid}`, {
+        const response = await fetch(`${URL}api/upload/curriculum/${USER_DATA.uid}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -193,7 +195,7 @@ async function eliminarCurriculum(urlEliminar) {
 }
 
 async function agregarCurriculum() {
-    const url = `http://localhost:8080/api/upload/curriculum/${USER_DATA.uid}`;
+    const url = `${URL}api/upload/curriculum/${USER_DATA.uid}`;
 
     try {
         const archivoInput = document.getElementById('archivoInput');

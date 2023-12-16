@@ -1,6 +1,6 @@
 
 let USER_DATA = '';
-const URL_PUBLICAR_OFERTA = 'http://localhost:8080/api/ofertas/';
+const URL_PUBLICAR_OFERTA = 'https://service-job-node.onrender.com/api/ofertas/';
 
 
 const boxMessageRequest = document.querySelector('#msg-inform-request');

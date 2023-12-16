@@ -1,5 +1,6 @@
 
 let USER_DATA = '';
+const URL = 'https://service-job-node.onrender.com/';
 
 const boxMessageRequest = document.querySelector('#msg-inform-request');
 const textMessageReq = document.querySelector('#msg-inform-p');
@@ -58,7 +59,7 @@ async function obtenerInformacionUsuario() {
 
         const { uid } = parseJwt(token);
 
-        const response = await fetch(`http://localhost:8080/api/usuarios/${uid}`, {
+        const response = await fetch(`${URL}api/usuarios/${uid}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -124,7 +125,7 @@ function construirTarjeta(oferta) {
 
 async function apiRequestObtenerDatosOferta(uid) {
 
-    const endpoint = `http://localhost:8080/api/ofertas/${uid}`;
+    const endpoint = `${URL}api/ofertas/${uid}`;
 
     try {
         const respuesta = await fetch(endpoint);

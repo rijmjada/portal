@@ -1,6 +1,7 @@
 
 let USER_DATA = '';
 let TOKEN = '';
+const URL = 'https://service-job-node.onrender.com/';
 
 
 const boxMessageRequest = document.querySelector('#msg-inform-request');
@@ -13,7 +14,7 @@ async function obtenerInformacionUsuario() {
 
         const { uid } = parseJwt(token);
 
-        const response = await fetch(`http://localhost:8080/api/usuarios/${uid}`, {
+        const response = await fetch(`${URL}api/usuarios/${uid}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -108,12 +109,9 @@ async function actualizarPerfil(e) {
 
     const { uid } = parseJwt(token);
 
-    const URL = `http://localhost:8080/api/usuarios/${uid}`
-
-
     try {
         // Realizar la solicitud POST para registrar al usuario
-        const response = await fetch(`${URL}`, {
+        const response = await fetch(`${URL}api/usuarios/${uid}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

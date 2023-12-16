@@ -1,8 +1,10 @@
 
 let OFERTA = '';
+const URL = 'https://service-job-node.onrender.com/';
+
 
 async function obtenerDataPublicacion(uid) {
-    const url = `http://localhost:8080/api/ofertas/${uid}`
+    const url = `${URL}api/ofertas/${uid}`
     try {
         const response = await fetch(url);
 
@@ -68,7 +70,7 @@ document.querySelector('#ver-postulantes').addEventListener('click', async () =>
 
 
 async function obtenerDatosPostulante(uid) {
-    const url = `http://localhost:8080/api/usuarios/${uid}`;
+    const url = `${URL}api/usuarios/${uid}`;
     try {
 
         const response = await fetch(url, {
