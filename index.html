@@ -64,13 +64,15 @@
     <!-- END - SPINNER LOADER -->
 
     <div class="container-fluid busquedas-container">
-        <div class="search">
+        <div class="search px-5">
             <h4>Empleá tu pasión</h4>
-            <input type="text" id="input-palabra-clave" placeholder="Puesto, empresa o palabra clave">
-            <input type="text" id="input-lugar" placeholder="Lugar de trabajo">
-            <button class="btn btn-primary m-3" onclick="realizarBusqueda()">Buscar</button>
-
+            <form id="searchForm" class="row ">
+                <input class="col-lg-8 col-12 m-2" type="text" id="input-palabra-clave" name="palabraClave"
+                    placeholder="Puesto, empresa o palabra clave">
+                <button class="btn btn-primary m-2 col border-dark-subtle " type="submit" id="btnBuscar">Buscar</button>
+            </form>
         </div>
+
     </div>
 
     <div class="banner-1 container-fluid d-flex justify-content-center align-items-center  gap-5 my-5 ">
@@ -314,7 +316,7 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
         </script>
 
-<script type="module" src="./js/main.js"></script>
+    <script type="module" src="./js/main.js"></script>
 
 </body>
 

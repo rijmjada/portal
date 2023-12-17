@@ -238,31 +238,53 @@ window.onload = function () {
 };
 
 
-function realizarBusqueda() {
-    // Obtener el valor del input de palabra clave
-    var palabraClave = encodeURIComponent(document.getElementById('input-palabra-clave').value);
+document.getElementById('searchForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const spinner = showSpinner(`Realizando busqueda...`);
+    try {
+        // Obtener el valor del input de palabra clave
+        const palabraClave = encodeURIComponent(document.getElementById('input-palabra-clave').value);
 
-    // Construir la URL del endpoint con el parámetro "termino"
-    var url = URL + 'api/ofertas?termino=' + palabraClave;
+        // Construir la URL del endpoint con el parámetro "termino"
+        const url = URL + 'api/ofertas?termino=' + palabraClave;
 
-    // Realizar la solicitud HTTP utilizando Fetch
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.total > 0) {
-                const ofertas = data.ofertas;
-                limpiarDivs()
-                // Llama a la función para construir las tarjetas con los datos obtenidos
-                ofertas.forEach(oferta => {
-                    construirTarjeta(oferta);
-                });
-            } else {
-                console.log('No hay ofertas disponibles.');
+        // Realizar la solicitud HTTP utilizando Fetch con async/await
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.status}`);
+        }
+
+        const data = await response.json();
+        limpiarDivs();
+
+        if (data.total > 0) {
+            const ofertas = data.ofertas;
+            // Llama a la función para construir las tarjetas con los datos obtenidos
+            for (const oferta of ofertas) {
+                construirTarjeta(oferta);
             }
-        })
-        .catch(error => {
-            console.error('Error al realizar la solicitud:', error);
-        });
+        } else {
+            mostrarMensajeNoResultados(palabraClave);
+        }
+    } catch (error) {
+        console.error('Error al realizar la solicitud:', error);
+    }
+    finally {
+        hideSpinner(spinner);
+    }
+});
+
+function mostrarMensajeNoResultados(termino) {
+    const mensajeElement = document.createElement('div');
+    mensajeElement.textContent = `No se encontraron resultados con el termino: "${termino}" .`;
+    mensajeElement.style.color = 'red'; 
+    mensajeElement.style.margin = '2rem';
+    const contenedorResultados = document.getElementById('col-get-1');
+    contenedorResultados.appendChild(mensajeElement);
 }
+
+
+
 
 

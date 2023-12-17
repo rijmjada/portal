@@ -28,35 +28,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .search {
+    margin: 5rem 0 5rem;
     background-color: rgba(0, 0, 0, 0.51);
-    min-height: 150px;
-    width: 70%;
-    border-radius: 25px;
+    min-width: 60%;
+    border-radius: 15px;
     padding: 25px;
     color: white;
-
 }
 
 #input-palabra-clave {
     outline: none;
     margin-top: 8px;
-    width: 65%;
     height: 55%;
     border-radius: 15px;
     padding: 15px;
 }
 
-#input-lugar {
-    outline: none;
-    margin-top: 8px;
-    width: 30%;
-    height: 55%;
-    border-radius: 15px;
-    padding: 15px;
-}
+
 
 /*** END - BUSCADOR MAIN ****/
 
