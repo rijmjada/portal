@@ -64,7 +64,7 @@ function handleCredentialResponse(response) {
 
     const body = { id_token: response.credential }
 
-    fetch('http://localhost:8080/api/auth/google', {
+    fetch(`${URL}api/auth/google`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
