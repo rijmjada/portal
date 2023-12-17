@@ -66,7 +66,7 @@
     </div>
 
     <div class="container d-flex justify-content-center my-5 ">
-        <form class="row  my-5 p-3 " id="actualizarPerfil" style="max-width: 70%;">
+        <form class="row my-5 " id="actualizarPerfil" style="max-width: 90%;">
 
             <div class="col-md-6 my-2 col-12">
                 <label for="inputName" class="form-label"> Nombre: </label>
@@ -83,49 +83,6 @@
                 <label for="inputDireccion" class="form-label"> Dirección: </label>
                 <input type="text" class="form-control" id="inputDireccion" required>
             </div>
-
-            <!-- <div class="col-md-6 col-12 ">
-                <div class="form-group ">
-                    <label for="selecSector" class="form-label">Provincia:</label>
-                    <select class="form-control border-black" id="selecSector" onchange="cargarLocalidades()">
-                        <option selected disabled>Selecciona una provincia</option>
-                        <option value="Capital Federal">Capital Federal</option>
-                        <option value="Buenos Aires">Buenos Aires</option>
-                        <option value="Buenos Aires-GBA">Buenos Aires-GBA</option>
-                        <option value="Catamarca">Catamarca</option>
-                        <option value="Córdoba">Córdoba</option>
-                        <option value="Corrientes">Corrientes</option>
-                        <option value="Chaco">Chaco</option>
-                        <option value="Chubut">Chubut</option>
-                        <option value="Entre Río">Entre Ríos</option>
-                        <option value="Formosa">Formosa</option>
-                        <option value="Jujuy">Jujuy</option>
-                        <option value="La Pampa">La Pampa</option>
-                        <option value="La Rioja">La Rioja</option>
-                        <option value="Mendoza">Mendoza</option>
-                        <option value="Misiones">Misiones</option>
-                        <option value="Neuquén">Neuquén</option>
-                        <option value="Río Negro">Río Negro</option>
-                        <option value="Salta">Salta</option>
-                        <option value="San Juan">San Juan</option>
-                        <option value="San Luis">San Luis</option>
-                        <option value="Santa Cruz">Santa Cruz</option>
-                        <option value="Santa Fe">Santa Fe</option>
-                        <option value="Santiago del Estero">Santiago del Estero</option>
-                        <option value="Tierra del Fuego">Tierra del Fuego</option>
-                        <option value="Tucumán">Tucumán</option>
-                    </select>
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-12">
-                <div class="form-group">
-                    <label for="selectLocalidad" class="form-label">Localidad:</label>
-                    <select class="form-control border-black" id="selectLocalidad">
-                    </select>
-                </div>
-            </div> -->
 
 
             <div class="col-md-6 my-2 col-12 ">
@@ -182,17 +139,17 @@
                     </select>
                 </div>
             </div>
+          
 
-
-            <!-- MESSAGE INFORM REQUEST -->
-            <div id="msg-inform-request" class=" text-center d-none my-5">
-                <p id="msg-inform-p">asd</p>
-            </div>
-
-            <div class="col-12 d-flex justify-content-center align-items-center" style="margin-top: 100px;">
+            <div class="col-12 d-flex justify-content-center align-items-center" style="margin-top: 60px;">
                 <button type="submit" class="text-center btn btn-success px-4">
                     Actualizar
                 </button>
+            </div>
+
+             <!-- MESSAGE INFORM REQUEST -->
+             <div id="msg-inform-request" class=" text-center d-none my-2">
+                <p id="msg-inform-p">asd</p>
             </div>
 
         </form>
