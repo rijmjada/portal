@@ -95,20 +95,27 @@ async function obtenerDatosPostulante(uid) {
 }
 
 
+
 function construirTarjetaPostulante(postulante) {
     const contenedorPostulantes = document.getElementById('card-container');
 
     const nuevaTarjeta = document.createElement('div');
     nuevaTarjeta.className = 'card my-2';
     nuevaTarjeta.innerHTML = `
-        <div class="card-body">
-            <h5 class="card-title">${postulante.nombre} ${postulante.apellido}</h5>
-            <p class="card-text">Correo: ${postulante.correo}</p>
-            <button class="btn btn-primary" onclick="descargarCurriculum('${postulante.curriculum[0]}', '${postulante.apellido}')">Descargar Curriculum</button>
-        </div>
-    `;
+    <div class="card-body">
+        <h5 class="card-title">${postulante.nombre} ${postulante.apellido}</h5>
+        <p class="card-text">Correo: ${postulante.correo}</p>
+        <button class="btn btn-primary btn-descargar" data-url="${postulante.curriculum[0]}" data-apellido="${postulante.apellido}">Descargar Curriculum</button>
+    </div>
+`;
 
     contenedorPostulantes.appendChild(nuevaTarjeta);
+
+    // Agregar un event listener al botón dentro de la tarjeta
+    const btnDescargar = nuevaTarjeta.querySelector('.btn-descargar');
+    btnDescargar.addEventListener('click', async () => {
+        await descargarCurriculum(btnDescargar.dataset.url, btnDescargar.dataset.apellido);
+    });
 }
 
 async function descargarCurriculum(url, apellido) {
