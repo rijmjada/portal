@@ -1,5 +1,4 @@
 
-import { showSpinner, hideSpinner } from './spinner.js';
 
 let OFERTA = '';
 const URL = 'https://service-job-node.onrender.com/';
