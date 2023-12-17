@@ -39,6 +39,11 @@ function crearEnlaceCurriculum(url, contenedor) {
     enlace.className = "list-group-item list-group-item-secondary d-flex justify-content-between align-items-center";
     enlace.textContent = obtenerNombreArchivo(url);
 
+    // Agregar estilos CSS para truncar el texto y mostrar puntos suspensivos (...) si se desborda
+    enlace.style.whiteSpace = 'nowrap';
+    enlace.style.overflow = 'hidden';
+    enlace.style.textOverflow = 'ellipsis';
+
     enlace.addEventListener('click', function () {
         quitarClaseActivaTodosEnlaces();
         this.classList.add('active');
