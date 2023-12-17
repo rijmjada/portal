@@ -96,6 +96,7 @@ async function obtenerDatosPostulante(uid) {
 
 
 
+
 function construirTarjetaPostulante(postulante) {
     const contenedorPostulantes = document.getElementById('card-container');
 
@@ -105,7 +106,7 @@ function construirTarjetaPostulante(postulante) {
     <div class="card-body">
         <h5 class="card-title">${postulante.nombre} ${postulante.apellido}</h5>
         <p class="card-text">Correo: ${postulante.correo}</p>
-        <button class="btn btn-primary btn-descargar" data-url="${postulante.curriculum[0]}" data-apellido="${postulante.apellido}">Descargar Curriculum</button>
+        <button class="btn btn-primary btn-descargar" data-url="${postulante.curriculum[0]}" data-apellido="${postulante.apellido}" data-nombre="${postulante.nombre}">Descargar Curriculum</button>
     </div>
 `;
 
@@ -114,21 +115,26 @@ function construirTarjetaPostulante(postulante) {
     // Agregar un event listener al botón dentro de la tarjeta
     const btnDescargar = nuevaTarjeta.querySelector('.btn-descargar');
     btnDescargar.addEventListener('click', async () => {
-        await descargarCurriculum(btnDescargar.dataset.url, btnDescargar.dataset.apellido);
+        await descargarCurriculum(btnDescargar.dataset.url, btnDescargar.dataset.apellido, btnDescargar.dataset.nombre);
     });
 }
 
-async function descargarCurriculum(url, apellido) {
+
+async function descargarCurriculum(url, apellido, nombreArchivo) {
     try {
         const response = await fetch(url);
         const data = await response.blob();
 
         const link = document.createElement('a');
         link.href = window.URL.createObjectURL(data);
-        link.download = `Curriculum_${apellido}.pdf`;
+
+        // Utilizar el nombre personalizado o "Curriculum" si no se proporciona
+        link.download = nombreArchivo ? `${nombreArchivo}.pdf` : `Curriculum.pdf`;
+
         link.click();
     } catch (error) {
         console.error('Error al descargar el curriculum:', error);
     }
 }
+
 
