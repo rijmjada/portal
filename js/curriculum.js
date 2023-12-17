@@ -33,16 +33,22 @@ function cargarPrimerPdf(primerUrl) {
 }
 
 function crearEnlaceCurriculum(url, contenedor) {
+    // Crear un contenedor principal para el enlace y el icono
+    const contenedorEnlace = document.createElement("div");
+    contenedorEnlace.className = "d-flex justify-content-between align-items-center";
+
     const enlace = document.createElement("a");
     enlace.style.cursor = 'pointer';
     enlace.setAttribute("data-url", url);
-    enlace.className = "list-group-item list-group-item-secondary d-flex justify-content-between align-items-center";
+    enlace.className = "list-group-item list-group-item-secondary mx-2 my-1";
     enlace.textContent = obtenerNombreArchivo(url);
 
-    // Agregar estilos CSS para truncar el texto y mostrar puntos suspensivos (...) si se desborda
-    enlace.style.whiteSpace = 'nowrap';
-    enlace.style.overflow = 'hidden';
-    enlace.style.textOverflow = 'ellipsis';
+    // Establecer estilos para el contenedor del nombre del archivo
+    enlace.style.flexGrow = 1; // Permite que el contenedor se expanda para ocupar el espacio disponible
+    enlace.style.whiteSpace = 'nowrap'; // Evita el salto de línea
+    enlace.style.overflow = 'hidden'; // Oculta el exceso de contenido
+    enlace.style.textOverflow = 'ellipsis'; // Trunca el texto con puntos suspensivos si es necesario
+    enlace.style.borderRadius = '6px';
 
     enlace.addEventListener('click', function () {
         quitarClaseActivaTodosEnlaces();
@@ -52,13 +58,19 @@ function crearEnlaceCurriculum(url, contenedor) {
     });
 
     const iconoEliminar = crearIconoEliminar(enlace);
-    enlace.appendChild(iconoEliminar);
-    contenedor.appendChild(enlace);
+
+    // Agregar el enlace y el icono al contenedor principal
+    contenedorEnlace.appendChild(enlace);
+    contenedorEnlace.appendChild(iconoEliminar);
+
+    // Agregar el contenedor principal al contenedor proporcionado
+    contenedor.appendChild(contenedorEnlace);
 }
+
 
 function crearIconoEliminar(enlace) {
     const iconoEliminar = document.createElement("i");
-    iconoEliminar.className = "bi bi-trash fs-5";
+    iconoEliminar.className = "bi bi-trash fs-5 mx-2 ";
     iconoEliminar.onclick = function () {
         const urlEliminar = enlace.getAttribute("data-url");
         borrarDocumento(this, urlEliminar);
