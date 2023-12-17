@@ -88,11 +88,13 @@ function obtenerDataForm() {
     return {
         titulo: document.querySelector('#titulo').value,
         ubicacion: document.querySelector('#ubicacion').value,
-        modalidad: document.querySelector('#modalidad').value,
         salario: document.querySelector('#salario').value,
-        descripcion: document.querySelector('#descripcion').value
+        descripcion: document.querySelector('#descripcion').value,
+        modalidad: document.querySelector('#selectModalidad').value,
+        sector: document.querySelector('#selectSector').value
     };
 }
+
 
 function parseJwt(token) {
     let base64Url = token.split('.')[1];

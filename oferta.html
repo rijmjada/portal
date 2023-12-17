@@ -81,30 +81,72 @@
 
 
         <div class="container d-flex justify-content-center my-5 " style="max-width: 90vb;">
-            <form class="row  p-3 " onsubmit=" publicarAviso(event)">
+            <form class="row p-3" onsubmit=" publicarAviso(event)">
 
-                <div class="col-md-6 my-2 col-12">
+                <div class="col-md-6 my-1 col-12">
                     <label for="titulo" class="form-label"> Titulo: </label>
                     <input type="text" class="form-control" id="titulo" required>
                 </div>
 
-                <div class="col-md-6 my-2 col-12">
+                <div class="col-md-6 my-1 col-12">
                     <label for="ubicacion" class="form-label"> Ubicacion:</label>
                     <input type="text" class="form-control" id="ubicacion" required>
                 </div>
 
 
-                <div class="col-md-6 my-2 col-12">
-                    <label for="modalidad" class="form-label"> Modalidad: </label>
-                    <input type="text" class="form-control" id="modalidad" required>
+                <div class="col-md-6 my-1 col-12">
+                    <div class="form-group ">
+                        <label for="selectModalidad" class="form-label">Modalidad:</label>
+                        <select class="form-control border-black" id="selectModalidad">
+                            <option selected disabled>Seleccioná una opcion</option>
+                            <option value="presencial"> Presencial </option>
+                            <option value="remoto"> Remoto </option>
+                            <option value="hibrido"> Hibrido </option>
+                        </select>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="col-md-6 my-2 col-12">
+
+                <div class="col-md-6 my-1 col-12">
                     <label for="salario" class="form-label"> Salario: </label>
                     <input type="text" class="form-control" id="salario" required>
                 </div>
 
-                <div class="col-12">
+                <div class="col-12 mb-4">
+                    <div class="form-group ">
+                        <label for="selectSector" class="form-label">Sector:</label>
+                        <select class="form-control border-black" id="selectSector">
+                            <option selected disabled>Seleccioná el sector</option>
+                            <option value="Agricultura, Pesca, Ganadería">Agricultura, Pesca, Ganadería</option>
+                            <option value="Construcción, obras"> Construcción, obras </option>
+                            <option value="Educación"> Educación </option>
+                            <option value="Energía"> Energía </option>
+                            <option value="Entretenimiento, Deportes"> Entretenimiento, Deportes </option>
+                            <option value="Fabricación"> Fabricación </option>
+                            <option value="Finanzas, Banca"> Finanzas, Banca </option>
+                            <option value="Gobierno, No Lucro"> Gobierno, No Lucro </option>
+                            <option value="Hostelería, Turismo"> Hostelería, Turismo </option>
+                            <option value="Informática, Hardware">Informática, Hardware</option>
+                            <option value="Informática, Software">Informática, Software</option>
+                            <option value="Internet"> Internet </option>
+                            <option value="Legal, Asesoría"> Legal, Asesoría </option>
+                            <option value="Materias Primas"> Materias Primas </option>
+                            <option value="Medios de Comunicación"> Medios de Comunicación </option>
+                            <option value="Publicidad, RRPP"> Publicidad, RRPP </option>
+                            <option value="RRHH, Personal"> RRHH, Personal </option>
+                            <option value="Salud, Medicina"> Salud, Medicina </option>
+                            <option value="Servicios Profesionales"> Servicios Profesionales </option>
+                            <option value="Telecomunicaciones"> Telecomunicaciones </option>
+                            <option value="Transporte"> Transporte </option>
+                            <option value="Venta al consumidor"> Venta al consumidor </option>
+                            <option value="Venta al por mayor"> Venta al por mayor </option>
+                        </select>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-12 my-2">
                     <label for="descripcion" class="form-label"> Descripcion: </label>
                     <textarea class="form-control" required id="descripcion"></textarea>
                 </div>
@@ -131,7 +173,7 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
         </script>
 
-    <script  src="./js/oferta.js"></script>
+    <script src="./js/oferta.js"></script>
 </body>
 
 </html>

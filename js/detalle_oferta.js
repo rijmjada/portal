@@ -193,6 +193,7 @@ function cargarDatosPublicacion(data) {
     document.querySelector('#ubicacion').textContent = data.ubicacion;
     document.querySelector('#modalidad').textContent = data.modalidad;
     document.querySelector('#salario').textContent = '$' + data.salario;
+    document.querySelector('#sector').textContent = data.sector;
 }
 
 function formatearFecha(fecha) {
