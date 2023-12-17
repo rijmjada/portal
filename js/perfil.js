@@ -1,5 +1,4 @@
 
-import { showSpinner, hideSpinner } from './spinner.js';
 
 let USER_UID = '';
 let USER_DATA = '';
@@ -438,3 +437,17 @@ function cerrarModal(e) {
 }
 
 
+function showSpinner(msg) {
+    const spinner = document.querySelector('.loader-container');
+    const message = document.querySelector('#message-spinner');
+    message.textContent = msg;
+    spinner.classList.remove('d-none');
+    return spinner;
+}
+
+function hideSpinner(spinner) {
+    // Ocultar el spinner después de 5 segundos
+    setTimeout(function () {
+        spinner.classList.add('d-none');
+    }, 500);
+}

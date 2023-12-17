@@ -88,8 +88,6 @@ function quitarClaseActivaTodosEnlaces() {
 }
 
 
-
-
 function sendMessageRequestToUserClient(message, errors) {
     boxMessageRequest.classList.toggle('d-none');
     textMessageReq.textContent = message;
@@ -236,13 +234,11 @@ async function agregarCurriculum() {
 }
 
 
-
 document.addEventListener('DOMContentLoaded', async function () {
     const spinner = showSpinner(`Cargando...`);
     await obtenerInformacionUsuario();
     hideSpinner(spinner)
 });
-
 
 
 
@@ -293,65 +289,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
-// function mostrarCurriculums(usuario) {
-//     try {
-//         if (usuario.curriculum.length > 0) {
-//             const contenedor = document.getElementById("detallesUsuario");
-//             contenedor.innerHTML = '';
-
-//             showPreviewPdf(usuario.curriculum[0]); // carga el primer pdf
-
-//             usuario.curriculum.forEach((url, index) => {
-
-//                 const enlace = document.createElement("a");
-//                 enlace.style.cursor = 'pointer';
-//                 enlace.setAttribute("data-url", url);
-//                 enlace.className = "list-group-item list-group-item-secondary d-flex justify-content-between align-items-center";
-//                 enlace.textContent = url.substring(url.lastIndexOf('/') + 1);
-
-//                 // Agrega un evento de clic al enlace
-//                 enlace.onclick = function () {
-//                     // Recupera la URL almacenada y llama a la función showPreviewPdf
-//                     const urlGuardada = this.getAttribute("data-url");
-//                     showPreviewPdf(urlGuardada);
-//                 };
-
-//                 const iconoEliminar = document.createElement("i");
-//                 iconoEliminar.className = "bi bi-trash fs-5";
-//                 iconoEliminar.onclick = function () {
-//                     // Recupera la URL almacenada y llama a la función borrarDocumento
-//                     const urlEliminar = enlace.getAttribute("data-url");
-//                     borrarDocumento(this, urlEliminar);
-//                 };
-
-//                 enlace.appendChild(iconoEliminar);
-//                 contenedor.appendChild(enlace);
-//             });
-
-//             saraza();
-
-//         } else {
-//             sendMessageRequestToUserClient(`No has cargado ningun curriculum`, true)
-//         }
-
-//     } catch (error) {
-//         sendMessageRequestToUserClient(error, true)
-//     }
-
-// }
-
-// function saraza() {
-//     const buttons = document.querySelectorAll('.list-group-item');
-
-//     // Agrega un evento de clic a cada botón
-//     buttons.forEach(button => {
-//         button.addEventListener('click', function () {
-//             // Elimina la clase "active" de todos los botones
-//             buttons.forEach(btn => btn.classList.remove('active'));
-
-//             // Agrega la clase "active" solo al botón clicado
-//             this.classList.add('active');
-//         });
-//     });
-// }
+document.querySelector('#btn-agregarCv').addEventListener('click', agregarCurriculum);
