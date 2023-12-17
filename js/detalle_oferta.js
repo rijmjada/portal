@@ -201,14 +201,14 @@ function formatearFecha(fecha) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-
+    
+    const spinner = showSpinner('Cargando...');
     // Obtener el uid de la URL
     const urlParams = new URLSearchParams(window.location.search);
     UID_OFERTA = urlParams.get('oferta');
     obtenerInformacionUsuario();
     obtenerDataPublicacion(UID_OFERTA);
-    console.log(UID_OFERTA);
-
+    hideSpinner(spinner);
 });
 
 document.querySelector('#goHome').addEventListener('click', () => {

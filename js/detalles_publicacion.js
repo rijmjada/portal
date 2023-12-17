@@ -1,8 +1,9 @@
+import { showSpinner, hideSpinner } from './spinner.js';
 
 
 let OFERTA = '';
 const URL = 'https://service-job-node.onrender.com/';
-
+let UID_OFERTA = '';
 
 async function obtenerDataPublicacion(uid) {
     const url = `${URL}api/ofertas/${uid}`
@@ -48,10 +49,11 @@ function cargarDatosPublicacion(data) {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-
+    const spinner = showSpinner('Cargando...');
     const urlParams = new URLSearchParams(window.location.search);
     UID_OFERTA = urlParams.get('oferta');
-    obtenerDataPublicacion(UID_OFERTA)
+    obtenerDataPublicacion(UID_OFERTA);
+    hideSpinner(spinner);
 });
 
 document.querySelector('#ver-postulantes').addEventListener('click', async () => {
