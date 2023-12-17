@@ -1,8 +1,7 @@
 
 import { showSpinner, hideSpinner } from './spinner.js';
 
-
-const URL = 'https://service-job-node.onrender.com/'
+import URL from './config.js';
 
 // Limpiar las cards
 function limpiarDivs() {

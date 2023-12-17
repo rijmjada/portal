@@ -113,7 +113,7 @@ function hideSpinner(spinner) {
     // Ocultar el spinner después de 5 segundos
     setTimeout(function () {
         spinner.classList.add('d-none');
-    }, 500);
+    }, 100);
 }
 
 

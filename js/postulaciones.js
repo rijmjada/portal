@@ -1,7 +1,7 @@
 import { showSpinner, hideSpinner } from './spinner.js';
+const URL = 'https://service-job-node.onrender.com/';
 
 let USER_DATA = '';
-const URL = 'https://service-job-node.onrender.com/';
 
 const boxMessageRequest = document.querySelector('#msg-inform-request');
 const textMessageReq = document.querySelector('#msg-inform-p');

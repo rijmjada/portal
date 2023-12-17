@@ -135,12 +135,13 @@ document.querySelector('#img-user').addEventListener('mouseout', () => {
 document.querySelector('#img-user').addEventListener('click', () => {
 });
 
-// Función para el evento onload
-window.onload = function () {
+// Función para el evento DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function () {
     const spinner = showSpinner('Cargando...');
     obtenerInformacionUsuario();
     hideSpinner(spinner);
-};
+});
+
 
 // Función para el área de arrastrar y soltar
 const dropZone = document.getElementById('drop-area');
@@ -446,8 +447,7 @@ function showSpinner(msg) {
 }
 
 function hideSpinner(spinner) {
-    // Ocultar el spinner después de 5 segundos
     setTimeout(function () {
         spinner.classList.add('d-none');
-    }, 500);
+    }, 100);
 }

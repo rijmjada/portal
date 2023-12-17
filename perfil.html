@@ -19,6 +19,8 @@
         * {
             font-family: 'Lexend Deca', sans-serif;
         }
+
+        @media screen and (max-width: 768px) {}
     </style>
 
 </head>
@@ -38,23 +40,14 @@
         <div class="row">
 
             <!-- BTN -->
-            <div class="d-flex justify-content-center align-items-center gap-2 bgda" id="btns-navigation">
-                <!-- BTN navv -->
-                <div class="row">
-                    <div class="col d-flex justify-content-center align-items-center gap-2">
-                        <div class="btn btn-outline-primary active" style="border-radius:  0 25px;" id="mi-perfil-page">
-                            Mi
-                            usuario
-                        </div>
-
-                        <!-- Estos btns se cargan dinamicamente -->
-                        <div class="btn btn-outline-primary" style="border-radius:  0 25px;" id="btn-2"> empty </div>
-                        <div class="btn btn-outline-primary" style="border-radius:  0 25px;" id="btn-3"> empty </div>
-                        <div class="btn btn-outline-primary d-none" style="border-radius:  0 25px;" id="btn-4"> empty
-                        </div>
-
-                    </div>
+            <div class="d-flex flex-wrap justify-content-center align-items-center gap-2" id="btns-navigation">
+                <div class="btn btn-outline-primary active" style="border-radius: 25px; min-width: 150px;" id="mi-perfil-page">
+                    Mi usuario
                 </div>
+                <!-- Estos btns se cargan dinámicamente -->
+                <div class="btn btn-outline-primary text-nowrap" style="border-radius: 25px; min-width: 150px;" id="btn-2"> .... </div>
+                <div class="btn btn-outline-primary text-nowrap" style="border-radius: 25px; min-width: 150px;" id="btn-3"> .... </div>
+                <div class="btn btn-outline-primary d-none text-nowrap" style="border-radius: 25px; min-width: 150px;"  id="btn-4"> .... </div>
             </div>
             <!-- BTN -->
 
@@ -198,9 +191,6 @@
                 <img src="./assets/profile.svg" alt="">
             </div>
             <!--END COL 2 - IMG -->
-
-
-
 
         </div>
     </div>

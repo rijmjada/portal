@@ -1,9 +1,8 @@
+import URL from './config.js';
+import { parseJwt } from './jwt.js';
 import { showSpinner, hideSpinner } from './spinner.js';
 
 let USER_DATA = '';
-let TOKEN = '';
-const URL = 'https://service-job-node.onrender.com/';
-
 
 const boxMessageRequest = document.querySelector('#msg-inform-request');
 const textMessageReq = document.querySelector('#msg-inform-p');
@@ -72,18 +71,14 @@ function recuperarDatosDelFormulario() {
     }
 }
 
-function parseJwt(token) {
-    let base64Url = token.split('.')[1];
-    let base64 = base64Url.replace('-', '+').replace('_', '/', '');
-    return JSON.parse(window.atob(base64));
-};
-
 
 document.addEventListener('DOMContentLoaded', async function () {
     const spinner = showSpinner(`Cargando...`);
     await obtenerInformacionUsuario();
     hideSpinner(spinner)
 });
+
+document.querySelector('#actualizarPerfil').addEventListener('submit', (event) => actualizarPerfil(event));
 
 async function actualizarPerfil(e) {
 

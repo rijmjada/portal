@@ -1,10 +1,10 @@
 
 import { showSpinner, hideSpinner } from './spinner.js';
+import URL from './config.js';
 
 
 let USER_DATA = '';
 let UID_OFERTA = '';
-const URL = 'https://service-job-node.onrender.com/';
 
 
 

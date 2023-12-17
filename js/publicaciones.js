@@ -88,7 +88,7 @@ function listarPublicaciones(publicaciones) {
         try {
             publicaciones.forEach(async uid => {
                 const data = await apiRequestObtenerDatosOferta(uid);
-                construirTarjeta(data);
+                if (data) construirTarjeta(data);
             });
         } catch (error) {
             console.log(error)
@@ -114,24 +114,30 @@ function construirTarjeta(oferta) {
         const uid = this.dataset.uid;
         window.location.href = `detalles_publicacion.html?oferta=${uid}`;
     });
-    
-    nuevaTarjeta.innerHTML = `
-        <div class="card my-2" style="height: 250px;">
-            <div class="card-body">
-                <p id="titulo-empresa">${oferta.empresa}</p>
-                <p id="fecha-publicacion">${diasTranscurridos(oferta.fechaCreacion)}</p>
-                <h5 class="card-title py-2">${oferta.titulo}</h5>
-                <p class="card-text">${oferta.descripcion}</p>
-                <div class="ubicacion-card d-flex flex-column">
-                    <i class="bi bi-geo-alt"> ${oferta.ubicacion}</i>
-                    <i class="bi bi-universal-access"> ${oferta.modalidad}</i> 
+
+    // Verifica que oferta sea un objeto y tenga una propiedad uid antes de acceder a ella
+    if (oferta && oferta.uid) {
+        nuevaTarjeta.innerHTML = `
+            <div class="card my-2" style="height: 250px;">
+                <div class="card-body">
+                    <p id="titulo-empresa">${oferta.empresa}</p>
+                    <p id="fecha-publicacion">${diasTranscurridos(oferta.fechaCreacion)}</p>
+                    <h5 class="card-title py-2">${oferta.titulo}</h5>
+                    <p class="card-text">${oferta.descripcion}</p>
+                    <div class="ubicacion-card d-flex flex-column">
+                        <i class="bi bi-geo-alt"> ${oferta.ubicacion}</i>
+                        <i class="bi bi-universal-access"> ${oferta.modalidad}</i> 
+                    </div>
                 </div>
             </div>
-        </div>
-    `;
+        `;
 
-    cardsPostulaciones.appendChild(nuevaTarjeta);
+        cardsPostulaciones.appendChild(nuevaTarjeta);
+    } else {
+        console.error('La oferta no tiene una propiedad uid definida:', oferta);
+    }
 }
+
 
 async function apiRequestObtenerDatosOferta(uid) {
 
@@ -171,7 +177,7 @@ function hideSpinner(spinner) {
     // Ocultar el spinner después de 5 segundos
     setTimeout(function () {
         spinner.classList.add('d-none');
-    }, 500);
+    }, 100);
 }
 
 document.querySelector('#btn-perfil').addEventListener('click', () => {

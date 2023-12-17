@@ -1,8 +1,8 @@
 import { showSpinner, hideSpinner } from './spinner.js';
+import URL from './config.js';
 
 
 let OFERTA = '';
-const URL = 'https://service-job-node.onrender.com/';
 let UID_OFERTA = '';
 
 async function obtenerDataPublicacion(uid) {
@@ -29,7 +29,6 @@ function formatearFecha(fecha) {
     return new Date(fecha).toLocaleDateString(undefined, options);
 }
 
-
 function cargarDatosPublicacion(data) {
     const descripcion = document.querySelector('#descripcion');
     // Reemplazar saltos de línea con etiquetas <br>
@@ -46,7 +45,6 @@ function cargarDatosPublicacion(data) {
     document.querySelector('#modalidad').textContent = data.modalidad;
     document.querySelector('#salario').textContent = '$' + data.salario;
 }
-
 
 document.addEventListener('DOMContentLoaded', function () {
     const spinner = showSpinner('Cargando...');
@@ -70,8 +68,6 @@ document.querySelector('#ver-postulantes').addEventListener('click', async () =>
     }
 });
 
-
-
 async function obtenerDatosPostulante(uid) {
     const url = `${URL}api/usuarios/${uid}`;
     try {
@@ -94,9 +90,6 @@ async function obtenerDatosPostulante(uid) {
     }
 }
 
-
-
-
 function construirTarjetaPostulante(postulante) {
     const contenedorPostulantes = document.getElementById('card-container');
 
@@ -118,7 +111,6 @@ function construirTarjetaPostulante(postulante) {
         await descargarCurriculum(btnDescargar.dataset.url, btnDescargar.dataset.apellido, btnDescargar.dataset.nombre);
     });
 }
-
 
 async function descargarCurriculum(url, apellido, nombreArchivo) {
     try {
