@@ -64,18 +64,6 @@ button {
     max-width: 80%;
 }
 
-
-#registerForm input,
-label {
-    font-size: smaller;
-}
-
-@media (max-width: 990px) {
-    * {
-        font-size: small;
-    }
-}
-
 :placeholder-shown {
     font-style: italic;
 }
