@@ -37,7 +37,6 @@ async function obtenerInformacionUsuario() {
         const { usuario } = await response.json();
         USER_DATA = usuario;
         await chequearTipoDeUsuario(USER_DATA);
-        console.log(USER_DATA);
     } catch (error) {
         console.log(`Error al obtener información del usuario: ${error.message}`);
     }
@@ -69,6 +68,7 @@ async function chequearTipoDeUsuario(usuario) {
                 message_disabled.textContent = 'Esta oferta ya no está disponible';
             }
         } else {
+
             // La oferta no fue publicada por el usuario actual, puedes mostrar un mensaje o deshabilitar el botón, según tus necesidades
             btn_accion_oferta.classList.add('disabled');
             btn_accion_oferta.textContent = 'Postularme';
@@ -76,12 +76,17 @@ async function chequearTipoDeUsuario(usuario) {
             message_disabled.textContent = 'No puedes postularte con una cuenta de empresa';
         }
     } else {
-        btn_accion_oferta.classList.remove('disabled');
-        btn_accion_oferta.textContent = 'Postularme';
+        if (!usuario.ofertasAplicadas.includes(UID_OFERTA)) {
+            btn_accion_oferta.classList.remove('disabled');
+            btn_accion_oferta.textContent = 'Postularme';
 
-        btn_accion_oferta.addEventListener('click', function () {
-            postularse();
-        });
+            btn_accion_oferta.addEventListener('click', function () {
+                postularse();
+            });
+        }
+        else {
+            msgYaPostulaste();
+        }
     }
 }
 
@@ -134,6 +139,7 @@ async function postularse() {
     const { uid } = USER_DATA;
     const url = `${URL}api/usuarios/${uid}`;
 
+    const spinner = showSpinner('Aplicando a la oferta...');
     try {
         // Obtener el token del localStorage
         const token = localStorage.getItem('x-token');
@@ -152,13 +158,25 @@ async function postularse() {
         if (!response.ok) {
             console.log(`Error en la solicitud: ${response.status}`);
         } else {
-            console.log(await response.json());
+            const data = await response.json();
+            msgYaPostulaste();
         }
 
     } catch (error) {
         console.log('todok' + error);
     }
+    finally {
+        hideSpinner(spinner);
+    }
 }
+
+function msgYaPostulaste() {
+    const btn = document.querySelector('#btn-accion-oferta');
+    btn.textContent = 'Postulado';
+    btn.classList.add('disabled');
+    btn.classList.add('btn-success');
+}
+
 
 async function obtenerDataPublicacion(uid) {
     const url = `${URL}api/ofertas/${uid}`;
@@ -202,7 +220,7 @@ function formatearFecha(fecha) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    
+
     const spinner = showSpinner('Cargando...');
     // Obtener el uid de la URL
     const urlParams = new URLSearchParams(window.location.search);

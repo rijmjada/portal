@@ -92,12 +92,24 @@ function listarPostulaciones(postulaciones) {
                 construirTarjeta(data);
             });
         } catch (error) {
-            console.log(error)
+            sendMessageRequestToUserClient(error, true)
         }
     }
     else {
-        console.log('sin postulaciones')
+        msgSinPostulaciones();
     }
+}
+
+
+function msgSinPostulaciones() {
+    const boxMessageRequest = document.querySelector('#msg-inform-request');
+    const textMessageReq = document.querySelector('#msg-inform-p');
+    boxMessageRequest.classList.remove('d-none');
+    boxMessageRequest.classList.add('fs-4');
+    boxMessageRequest.classList.add('text-center');
+    boxMessageRequest.classList.add('text-danger');
+    boxMessageRequest.classList.add('my-5');
+    textMessageReq.textContent = `No se registraron postualciones`;
 }
 
 // Función para construir una tarjeta
@@ -155,15 +167,15 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
 /** Btns redirect */
-document.querySelector('#mi-postulaciones-page').addEventListener('click', ()=> {
+document.querySelector('#mi-postulaciones-page').addEventListener('click', () => {
     window.location.href = '../postulaciones.html';
 });
 
-document.querySelector('#mi-perfil-page').addEventListener('click', ()=> {
+document.querySelector('#mi-perfil-page').addEventListener('click', () => {
     window.location.href = '../perfil.html';
 });
 
-document.querySelector('#mi-curriculum-page').addEventListener('click', ()=> {
+document.querySelector('#mi-curriculum-page').addEventListener('click', () => {
     window.location.href = '../curriculum.html';
 });
 

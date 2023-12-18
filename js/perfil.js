@@ -449,5 +449,5 @@ function showSpinner(msg) {
 function hideSpinner(spinner) {
     setTimeout(function () {
         spinner.classList.add('d-none');
-    }, 100);
+    }, 400);
 }

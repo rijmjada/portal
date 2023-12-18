@@ -19,8 +19,6 @@
         * {
             font-family: 'Lexend Deca', sans-serif;
         }
-
-        @media screen and (max-width: 768px) {}
     </style>
 
 </head>
@@ -46,7 +44,8 @@
                     Mi usuario
                 </div>
                 <!-- Estos btns se cargan dinámicamente -->
-                <div class="btn btn-outline-primary text-nowrap" style="border-radius:  25px; min-width: 150px;"id="btn-2"> .... </div>
+                <div class="btn btn-outline-primary text-nowrap" style="border-radius:  25px; min-width: 150px;"
+                    id="btn-2"> .... </div>
                 <div class="btn btn-outline-primary text-nowrap" style="border-radius:  25px; min-width: 150px;"
                     id="btn-3"> .... </div>
                 <div class="btn btn-outline-primary d-none text-nowrap" style="border-radius:  25px; min-width: 150px;"
@@ -55,7 +54,7 @@
             <!-- BTN -->
 
             <!--COL 1 DATOS USUARIO-->
-            <div class="col-sm-12 col-md-12 col-lg-6 p-5 text-center">
+            <div class="col-sm-12 col-md-12 col-lg-6 p-3 text-center">
 
                 <div id="img-container">
                     <img src="./assets/PERFIL-VACIO.png" class="my-4" alt="" id="img-user" data-bs-toggle="modal"
@@ -132,14 +131,14 @@
 
 
                     <!-- CAMBIAR CONTRASEÑA -->
-                    <div class="form-check ms-3 mt-3 d-flex">
+                    <div class="form-check  mt-3 d-flex">
                         <input class="form-check-input" type="checkbox" id="changePassword" data-bs-toggle="collapse"
                             data-bs-target="#passwordContent" onclick="togglePasswordFields()"
                             style="border: 1px solid black;">
                         <label for="changePassword" class="form-check-label ms-2">Cambiar contraseña</label>
                     </div>
 
-                    <div class="collapse ms-3 mt-1 row p-3" id="passwordContent">
+                    <div class="collapse  mt-1 row p-3" id="passwordContent">
                         <div class="col-md-12 mt-2">
                             <label for="inputPassword" class="form-label"> Contraseña actual: </label>
                             <input type="password" class="form-control" id="inputPassword">
@@ -158,15 +157,17 @@
 
 
                     <div class="col-12 mt-4">
-                        <div class="row ">
-                            <div class="col p-2">
+                        <div class="row">
+                            <div class="col">
                                 <button type="submit" class="btn btn-outline-primary" style="width: 100%;"> Actualizar
                                 </button>
                             </div>
 
-                            <div class="col p-2">
-                                <button class="btn btn-outline-danger" onclick="DeleteAccount(event)"
-                                    style="width: 100%;"> Eliminar cuenta </button>
+                            <div class="col">
+                                <button class="btn btn-outline-danger" style="width: 100%;"
+                                    onclick="DeleteAccount(event)">Eliminar cuenta
+
+                                </button>
                             </div>
 
 
@@ -181,7 +182,6 @@
                                 </div>
                             </div>
 
-
                         </div>
                     </div>
                 </form>
@@ -190,7 +190,7 @@
             <!-- END COL 1 DATOS USUARIO-->
 
             <!--COL 2 - IMG -->
-            <div class="col-sm-12 col-md-12 col-lg-6 p-5 text-center mt-5" id="col-imgProfile">
+            <div class="col-sm-12 col-md-12 col-lg-6 p-3 text-center mt-5" id="col-imgProfile">
                 <img src="./assets/profile.svg" alt="">
             </div>
             <!--END COL 2 - IMG -->

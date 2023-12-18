@@ -7,6 +7,20 @@ let USER_DATA = '';
 const boxMessageRequest = document.querySelector('#msg-inform-request');
 const textMessageReq = document.querySelector('#msg-inform-p');
 
+function sendMessageRequestToUserClient(message, errors) {
+    boxMessageRequest.classList.toggle('d-none');
+    textMessageReq.textContent = message;
+
+    textMessageReq.style.color = errors ? 'red' : 'blue';
+
+    setTimeout(() => {
+        boxMessageRequest.classList.toggle('d-none');
+        textMessageReq.textContent = '';
+        textMessageReq.style.color = '';
+    }, 1500);
+}
+
+
 async function obtenerInformacionUsuario() {
     try {
         // Obtener el token del localStorage
@@ -85,10 +99,9 @@ async function actualizarPerfil(e) {
     e.preventDefault();
 
     const usuario = recuperarDatosDelFormulario();
-
     const token = localStorage.getItem('x-token');
-
     const { uid } = parseJwt(token);
+    const spinner = showSpinner('Actualizando...');
 
     try {
         // Realizar la solicitud POST para registrar al usuario
@@ -111,20 +124,11 @@ async function actualizarPerfil(e) {
         sendMessageRequestToUserClient('Hubo un error', true);
         console.log(error)
     }
+    finally{
+        hideSpinner(spinner);
+    }
 }
 
-function sendMessageRequestToUserClient(message, errors) {
-    boxMessageRequest.classList.toggle('d-none');
-    textMessageReq.textContent = message;
-
-    textMessageReq.style.color = errors ? 'red' : 'blue';
-
-    setTimeout(() => {
-        boxMessageRequest.classList.toggle('d-none');
-        textMessageReq.textContent = '';
-        textMessageReq.style.color = '';
-    }, 1500);
-}
 
 document.querySelector('#btn-perfil').addEventListener('click', () => {
     window.location.href = '../perfil.html';

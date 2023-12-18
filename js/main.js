@@ -41,36 +41,6 @@ function diasTranscurridos(desde) {
     return message;
 }
 
-// Peticion GET listar ofertas
-function obtenerDatos(params) {
-
-    // Reemplaza esta URL con la URL de tu API
-    let apiUrl = `${URL}api/ofertas`;
-
-    if (typeof params === 'string' && params.trim() !== '') {
-        apiUrl += params;
-    }
-
-    limpiarDivs();
-
-    // Realiza la solicitud GET
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            // Verifica si hay ofertas en la respuesta
-            if (data.total > 0) {
-                const ofertas = data.ofertas;
-
-                // Llama a la función para construir las tarjetas con los datos obtenidos
-                ofertas.forEach(oferta => {
-                    construirTarjeta(oferta);
-                });
-            } else {
-                console.log('No hay ofertas disponibles.');
-            }
-        })
-        .catch(error => console.error('Error al obtener datos:', error));
-}
 
 // Función para construir una tarjeta
 function construirTarjeta(oferta) {
@@ -110,21 +80,6 @@ function construirTarjeta(oferta) {
 }
 
 
-// *** Botones Modalidad de trabajo *** ///
-// ************************************ ///
-document.querySelector('#hibridoGet').addEventListener('click', () => {
-    obtenerDatos('?modalidad=hibrido')
-});
-document.querySelector('#presencialGet').addEventListener('click', () => {
-    obtenerDatos('?modalidad=presencial')
-});
-document.querySelector('#remotoGet').addEventListener('click', () => {
-    obtenerDatos('?modalidad=remoto')
-});
-// ************************************ ///
-// *** END - Botones Modalidad de trabajo *** ///
-
-
 document.querySelector('#CrearCuenta').addEventListener('click', () => {
     window.location.href = '../register.html';
 });
@@ -138,7 +93,6 @@ function parseJwt(token) {
     var base64 = base64Url.replace('-', '+').replace('_', '/');
     return JSON.parse(window.atob(base64));
 };
-
 
 function verificarAutenticacion() {
     // Obtener el token del localStorage
@@ -216,7 +170,6 @@ function verificarAutenticacion() {
         });
 }
 
-
 // Función para cerrar sesión
 function cerrarSesion() {
     // Limpiar el localStorage (eliminar el token)
@@ -227,14 +180,165 @@ function cerrarSesion() {
 }
 
 
+// Peticion GET listar ofertas
+function obtenerDatos(params) {
+
+    let apiUrl = `${URL}api/ofertas`;
+
+    if (typeof params === 'string' && params.trim() !== '') {
+        apiUrl += params;
+    }
+
+    limpiarDivs();
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.total > 0) {
+                const ofertas = data.ofertas;
+                ofertas.forEach(oferta => {
+                    construirTarjeta(oferta);
+                });
+            } else {
+                console.log('No hay ofertas disponibles.');
+            }
+        })
+        .catch(error => console.error('Error al obtener datos:', error));
+}
+
 
 // Llamar a ambas funciones cuando la página se carga
-window.onload = function () {
+window.onload = async function () {
     const spinner = showSpinner(`Cargando...`);
     obtenerDatos();
     verificarAutenticacion();
+    await listarSectoresFilter();
+    await listarFechasFilter();
+    await cargarModalidadesFilter();
     hideSpinner(spinner);
 };
+
+// Modifica la función cargarModalidadesFilter
+async function cargarModalidadesFilter() {
+    try {
+        const response = await fetch(`${URL}api/ofertas/modalidades`);
+        const modalidades = await response.json();
+
+        const ulModalidadFilter = document.getElementById('ul-modalidad-filter');
+
+        Object.entries(modalidades).forEach(([modalidad, cantidad]) => {
+            const li = document.createElement('li');
+            li.dataset.modalidad = modalidad.toLowerCase();
+            li.innerHTML = `
+                <div class="d-flex justify-content-between">
+                    <span>${modalidad.charAt(0).toUpperCase() + modalidad.slice(1)}</span>
+                    <span class="ms-2 opacity-75">(${cantidad || 0})</span>
+                    <!-- Ajusta la clase y el espacio según tu diseño -->
+                </div>
+            `;
+
+            li.addEventListener('click', function () {
+                const modalidadSeleccionada = this.dataset.modalidad;
+                obtenerDatos(`?modalidad=${modalidadSeleccionada}`);
+            });
+
+            ulModalidadFilter.appendChild(li);
+        });
+    } catch (error) {
+        console.error('Error al obtener las modalidades', error);
+    }
+}
+
+async function obtenerFechasDeOfertas() {
+    try {
+        const response = await fetch(`${URL}api/ofertas/fechas`);
+        return await response.json();
+    } catch (error) {
+        console.error('Error al obtener las fechas desde el backend', error);
+        throw error;
+    }
+}
+
+function contarOfertasEnRango(fechas, inicio, fin) {
+    return fechas.filter(fecha => {
+        // Comparar solo la fecha (ignorar la hora)
+        return fecha.toISOString().split('T')[0] === inicio.toISOString().split('T')[0];
+    }).length;
+}
+
+function crearLiConFormato(nombre, contador) {
+    const li = document.createElement('li');
+    li.innerHTML = `
+        <div class="d-flex justify-content-between">
+            <span>${nombre}</span>
+            <span class="ms-2 opacity-75">(${contador})</span>
+        </div>
+    `;
+    return li;
+}
+
+async function listarFechasFilter() {
+    try {
+        const fechasDeOfertas = await obtenerFechasDeOfertas();
+
+        const ahora = new Date();
+        const rangos = [
+            { nombre: 'hoy', inicio: new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate()), duracion: 1 },
+            { nombre: '48hs', inicio: new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate() - 2), duracion: 2 },
+            { nombre: '72hs', inicio: new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate() - 3), duracion: 3 },
+            { nombre: 'ultima semana', inicio: new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate() - 7), duracion: 7 },
+            { nombre: 'hace 15 dias', inicio: new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate() - 15), duracion: 15 },
+            { nombre: 'ultimos mes', inicio: new Date(ahora.getFullYear(), ahora.getMonth() - 1, ahora.getDate()), duracion: 30 },
+            { nombre: 'mas de un mes', inicio: new Date(0) }
+        ];
+
+        const ul = document.getElementById('ul-fecha-filter');
+
+        for (const rango of rangos) {
+            const fin = rango.duracion ? new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate()) : new Date(0);
+            const contador = contarOfertasEnRango(fechasDeOfertas.map(fecha => new Date(fecha)), rango.inicio, fin);
+            const li = crearLiConFormato(rango.nombre, contador);
+            ul.appendChild(li);
+        }
+    } catch (error) {
+        console.error('Error al listar fechas', error);
+    }
+}
+
+
+async function listarSectoresFilter() {
+    try {
+        const response = await fetch(URL + 'api/ofertas/sectores');
+        const data = await response.json();
+
+        const areaFilterUl = document.querySelector('#ul-area-filter');
+
+        Object.entries(data).forEach(([sector, cantidad]) => {
+            const li = document.createElement('li');
+            li.dataset.sector = sector.toLowerCase();
+            li.innerHTML = `
+                <div class="d-flex justify-content-between">
+                    <span>${sector}</span>
+                    <span class="ms-2 opacity-75">(${cantidad})</span>
+                </div>
+            `;
+
+            li.addEventListener('click', function () {
+                const sectorSeleccionado = this.dataset.sector;
+                listarOfertasPorSector(sectorSeleccionado);
+            });
+            areaFilterUl.appendChild(li);
+        });
+    } catch (error) {
+        console.error('Error al obtener los sectores', error);
+    }
+}
+
+function listarOfertasPorSector(sector) {
+    console.log('este es el sector:' + sector)
+}
+
+
 
 
 document.getElementById('searchForm').addEventListener('submit', async (event) => {
@@ -277,7 +381,7 @@ document.getElementById('searchForm').addEventListener('submit', async (event) =
 function mostrarMensajeNoResultados(termino) {
     const mensajeElement = document.createElement('div');
     mensajeElement.textContent = `No se encontraron resultados con el termino: "${termino}" .`;
-    mensajeElement.style.color = 'red'; 
+    mensajeElement.style.color = 'red';
     mensajeElement.style.margin = '2rem';
     const contenedorResultados = document.getElementById('col-get-1');
     contenedorResultados.appendChild(mensajeElement);

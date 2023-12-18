@@ -71,6 +71,7 @@ function crearEnlaceCurriculum(url, contenedor) {
 function crearIconoEliminar(enlace) {
     const iconoEliminar = document.createElement("i");
     iconoEliminar.className = "bi bi-trash fs-5 mx-2 ";
+    iconoEliminar.style.cursor = 'pointer';
     iconoEliminar.onclick = function () {
         const urlEliminar = enlace.getAttribute("data-url");
         borrarDocumento(this, urlEliminar);
@@ -237,7 +238,7 @@ async function agregarCurriculum() {
 
             if (response.ok) {
                 sendMessageRequestToUserClient('cv cargado correctamente', false);
-                // TODO: mostrar mensaje de archivo cargado y actualizar la lista de cvs y el preview quedando seleccionado el último subido
+                window.location.reload();
             } else {
                 sendMessageRequestToUserClient(responseData.textContent, true);
             }

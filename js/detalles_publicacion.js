@@ -41,18 +41,63 @@ function cargarDatosPublicacion(data) {
 
     document.querySelector('#ubicacion').textContent = data.ubicacion;
     document.querySelector('#modalidad').textContent = data.modalidad;
+    document.querySelector('#sector').textContent = data.sector;
     document.querySelector('#salario').textContent = '$' + data.salario;
+
+    if (!data.estado) {
+        ofertaFinalizadaBtn();
+    }
 }
 
+function ofertaFinalizadaBtn() {
+    const btn = document.querySelector('#btn-accion-oferta');
+    btn.textContent = 'Finalizada';
+    btn.classList.add('disabled');
+}
+
+async function eliminarOferta() {
+    const url = `${URL}api/ofertas/${UID_OFERTA}`;
+
+    const spinner = showSpinner('Eliminando...');
+    try {
+        // Obtener el token del localStorage
+        const token = localStorage.getItem('x-token');
+
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-token': token
+            },
+        });
+
+        if (!response.ok) {
+            sendMessageRequestToUserClient(await response.json(), true);
+        }
+
+        sendMessageRequestToUserClient(`oferta eliminada`, false);
+
+    } catch (error) {
+        sendMessageRequestToUserClient(error.json, true);
+    }
+    finally{
+        hideSpinner(spinner);
+    }
+}
+
+document.querySelector('#btn-accion-oferta').addEventListener('click', eliminarOferta);
+
 document.addEventListener('DOMContentLoaded', function () {
+    const spinner = showSpinner('Cargando...');
     const urlParams = new URLSearchParams(window.location.search);
     UID_OFERTA = urlParams.get('oferta');
     obtenerDataPublicacion(UID_OFERTA);
+    hideSpinner(spinner);
 });
 
 document.querySelector('#ver-postulantes').addEventListener('click', async () => {
 
-    if (OFERTA.postulantes.length >= 0) {
+    if (OFERTA.postulantes.length > 0) {
         // Recorrer la lista de postulantes y construir tarjetas para cada uno
         for (const postulante of OFERTA.postulantes) {
             const data = await obtenerDatosPostulante(postulante);
@@ -60,7 +105,7 @@ document.querySelector('#ver-postulantes').addEventListener('click', async () =>
         }
     }
     else {
-        console.log('nadie aplico a esta oferta');
+        sendMessageRequestToUserClient('No se registraron postulantes para esta oferta', true);
     }
 });
 
@@ -125,4 +170,41 @@ async function descargarCurriculum(url, apellido, nombreArchivo) {
     }
 }
 
+function showSpinner(msg) {
+    const spinner = document.querySelector('.loader-container');
+    const message = document.querySelector('#message-spinner');
+    message.textContent = msg;
+    spinner.classList.remove('d-none');
+    return spinner;
+}
 
+function hideSpinner(spinner) {
+    // Ocultar el spinner después de 5 segundos
+    setTimeout(function () {
+        spinner.classList.add('d-none');
+    }, 500);
+}
+
+const boxMessageRequest = document.querySelector('#msg-inform-request');
+const textMessageReq = document.querySelector('#msg-inform-p');
+
+function sendMessageRequestToUserClient(message, errors) {
+
+    ofertaFinalizadaBtn();
+
+    boxMessageRequest.classList.toggle('d-none');
+    textMessageReq.textContent = message;
+
+    textMessageReq.style.color = errors ? 'red' : 'blue';
+
+    setTimeout(() => {
+        boxMessageRequest.classList.toggle('d-none');
+        textMessageReq.textContent = '';
+        textMessageReq.style.color = '';
+    }, 2500);
+}
+
+
+document.querySelector('#goHome').addEventListener('click', ()=> {
+    window.location.href = '../index.html';
+});

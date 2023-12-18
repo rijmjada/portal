@@ -95,7 +95,7 @@ function listarPublicaciones(publicaciones) {
         }
     }
     else {
-        console.log('sin publicaciones')
+        sendMessageRequestToUserClient('No registras publicaciones', false)
     }
 }
 

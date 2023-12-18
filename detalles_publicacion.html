@@ -19,7 +19,6 @@
         * {
             font-family: 'Lexend Deca', sans-serif;
         }
-         
     </style>
 
 </head>
@@ -50,40 +49,44 @@
                 <hr>
 
                 <br>
-
-                <article>
-                    <strong>Puesto: </strong>
+                <article class="my-1">
+                    <strong><i class="bi bi-person-workspace m-1"></i> Puesto: </strong>
                     <span id="puesto"></span>
                 </article>
 
 
-                <article>
-                    <strong>Empresa:</strong>
+                <article class="my-1">
+                    <strong><i class="bi bi-building-fill-check m-1"></i> Empresa:</strong>
                     <span id="empresa"></span>
                 </article>
 
-                <article>
-                    <strong>Fecha publicacion:</strong>
+                <article class="my-1">
+                    <strong><i class="bi bi-clock-fill m-1"></i> Fecha publicacion:</strong>
                     <span id="fecha-publicacion"></span>
                 </article>
 
-                <article>
-                    <strong>Ubicacion:</strong>
+                <article class="my-1">
+                    <strong><i class="bi bi-geo-alt-fill m-1"></i> Ubicacion:</strong>
                     <span id="ubicacion"></span>
                 </article>
 
-                <article>
-                    <strong>Modalidad:</strong>
+                <article class="my-1">
+                    <strong><i class="bi bi-globe m-1"></i> Modalidad:</strong>
                     <span id="modalidad"></span>
                 </article>
 
-                <article>
-                    <strong>Sueldo:</strong>
+                <article class="my-1">
+                    <strong><i class="bi bi-cash m-1"></i> Sueldo:</strong>
                     <span id="salario"></span>
                 </article>
 
+                <article class="my-1">
+                    <strong><i class="bi bi-boxes m-1"></i> Sector:</strong>
+                    <span id="sector"></span>
+                </article>
+
                 <br>
-                <strong>Descripcion: </strong>
+                <strong class="my-1"><i class="bi bi-info-circle-fill m-1"></i> Descripcion: </strong>
 
                 <p id="descripcion"></p>
             </div>
@@ -92,6 +95,11 @@
                 <div class="box" style="max-height: 50vh; margin-top: 120px;">
                     <div class="btn btn-danger fs-3 p-3 my-2 m-1" id="btn-accion-oferta">Eliminar</div>
                     <div class="btn btn-outline-primary fs-3 p-3 my-2 m-1 " id="ver-postulantes"> Ver Postulantes</div>
+
+                    <!-- MESSAGE INFORM REQUEST -->
+                    <div id="msg-inform-request" class="d-none p-4">
+                        <p id="msg-inform-p"></p>
+                    </div>
 
                     <p class="d-none  my-3" id="message_disabled" style="font-style: italic; font-size: s;"></p>
 
@@ -102,15 +110,13 @@
             </div>
         </div>
 
-
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
         </script>
 
-    <script  src="./js/detalles_publicacion.js"></script>
+    <script src="./js/detalles_publicacion.js"></script>
 </body>
 
 </html>
