@@ -51,9 +51,11 @@ function publicarAviso(e) {
     e.preventDefault();
 
     let dataFormulario = obtenerDataForm();
-    dataFormulario.empresa = USER_DATA.nombreEmpresa;
-    console.log(dataFormulario);
-    apiRequestCrearOferta(dataFormulario)
+    if (dataFormulario) {
+        dataFormulario.empresa = USER_DATA.nombreEmpresa;
+        apiRequestCrearOferta(dataFormulario)
+    }
+
 }
 
 async function apiRequestCrearOferta(data) {
@@ -85,13 +87,22 @@ async function apiRequestCrearOferta(data) {
 
 
 function obtenerDataForm() {
+    const salarioInput = document.querySelector('#salario');
+    const salario = salarioInput.value;
+
+    // Permitir números enteros y decimales con comas o puntos
+    if (!/^\d+(\.\d+)?$/.test(salario.replace(',', '.'))) {
+        sendMessageRequestToUserClient('Por favor, ingresa un valor válido en el campo de salario.', true);
+        return null; // Devolver null para indicar que los datos no son válidos
+    }
+
     return {
         titulo: document.querySelector('#titulo').value,
         ubicacion: document.querySelector('#ubicacion').value,
-        salario: document.querySelector('#salario').value,
         descripcion: document.querySelector('#descripcion').value,
         modalidad: document.querySelector('#selectModalidad').value,
-        sector: document.querySelector('#selectSector').value
+        sector: document.querySelector('#selectSector').value,
+        salario: parseFloat(salario.replace(',', '.')) // Convertir el salario a un número antes de devolverlo
     };
 }
 
