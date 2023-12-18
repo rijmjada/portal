@@ -1,4 +1,3 @@
-import { showSpinner, hideSpinner } from './spinner.js';
 
 const URL = 'https://service-job-node.onrender.com/';
 

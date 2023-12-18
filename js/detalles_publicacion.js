@@ -1,7 +1,5 @@
-import { showSpinner, hideSpinner } from './spinner.js';
-import URL from './config.js';
 
-
+const URL = 'https://backjob-production.up.railway.app/'
 let OFERTA = '';
 let UID_OFERTA = '';
 
@@ -47,11 +45,9 @@ function cargarDatosPublicacion(data) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    const spinner = showSpinner('Cargando...');
     const urlParams = new URLSearchParams(window.location.search);
     UID_OFERTA = urlParams.get('oferta');
     obtenerDataPublicacion(UID_OFERTA);
-    hideSpinner(spinner);
 });
 
 document.querySelector('#ver-postulantes').addEventListener('click', async () => {
