@@ -1,5 +1,5 @@
 
-const URL = 'https://service-job-node.onrender.com/'
+const URL = 'https://backjob-production.up.railway.app/'
 
 
 function loginFormSubmit(event) {

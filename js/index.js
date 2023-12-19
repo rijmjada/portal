@@ -3,33 +3,20 @@ import { showSpinner, hideSpinner } from './spinner.js';
 
 import URL from './config.js';
 
-// Limpiar las cards
 function limpiarDivs() {
     const colGet1 = document.getElementById('col-get-1');
     const colGet2 = document.getElementById('col-get-2');
-
-    // Elimina todo el contenido de los divs
     colGet1.innerHTML = '';
     colGet2.innerHTML = '';
 }
 
-// Formatear fecha
 function diasTranscurridos(desde) {
-
     let message = 'Publicado ';
-    // Convierte la cadena de fecha a un objeto Date
     const fechaInicio = new Date(desde);
-
-    // Obtiene la fecha actual
     const fechaActual = new Date();
-
-    // Calcula la diferencia en milisegundos entre las dos fechas
     const diferenciaMs = fechaActual - fechaInicio;
-
-    // Calcula la diferencia en días redondeando hacia abajo
     const diasTranscurridos = Math.floor(diferenciaMs / (1000 * 60 * 60 * 24));
 
-    // Lógica para devolver el texto relativo
     if (diasTranscurridos === 0) {
         message += 'hoy';
     } else if (diasTranscurridos === 1) {
@@ -37,12 +24,9 @@ function diasTranscurridos(desde) {
     } else {
         message += `hace ${diasTranscurridos} días`;
     }
-
     return message;
 }
 
-
-// Función para construir una tarjeta
 function construirTarjeta(oferta) {
     const colGet1 = document.getElementById('col-get-1');
     const colGet2 = document.getElementById('col-get-2');
@@ -79,7 +63,6 @@ function construirTarjeta(oferta) {
     targetColumn.appendChild(nuevaTarjeta);
 }
 
-
 document.querySelector('#CrearCuenta').addEventListener('click', () => {
     window.location.href = '../register.html';
 });
@@ -95,20 +78,14 @@ function parseJwt(token) {
 };
 
 function verificarAutenticacion() {
-    // Obtener el token del localStorage
     const token = localStorage.getItem('x-token');
-
-    // Si no hay un token, el usuario no está autenticado
     if (!token) {
-        // Mostrar los botones de "Crear cuenta" e "Ingresar"
         document.querySelector('#CrearCuenta').classList.remove('visually-hidden');
         document.querySelector('#Ingresar').classList.remove('visually-hidden');
         return;
     }
-
     const { uid } = parseJwt(token);
 
-    // Realizar una solicitud GET para obtener la información del usuario
     fetch(`${URL}api/usuarios/${uid}`, {
         method: 'POST',
         headers: {
@@ -170,55 +147,78 @@ function verificarAutenticacion() {
         });
 }
 
-// Función para cerrar sesión
 function cerrarSesion() {
-    // Limpiar el localStorage (eliminar el token)
     localStorage.removeItem('x-token');
-
-    // Recargar la página para reflejar los cambios
     window.location.reload();
 }
 
 
-// Peticion GET listar ofertas
-function obtenerDatos(params) {
+async function obtenerDatos(params) {
 
     let apiUrl = `${URL}api/ofertas`;
+    const spinner = showSpinner('Realizando busqueda...');
 
     if (typeof params === 'string' && params.trim() !== '') {
         apiUrl += params;
     }
 
     limpiarDivs();
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
 
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data.total > 0) {
-                const ofertas = data.ofertas;
-                ofertas.forEach(oferta => {
-                    construirTarjeta(oferta);
-                });
-            } else {
-                console.log('No hay ofertas disponibles.');
-            }
-        })
-        .catch(error => console.error('Error al obtener datos:', error));
+        if (data.total > 0) {
+            const ofertas = data.ofertas;
+            ofertas.forEach(oferta => {
+                construirTarjeta(oferta);
+            });
+        } else {
+            console.log('No hay ofertas disponibles.');
+        }
+    } catch (error) {
+        console.error('Error al obtener datos:', error);
+    }
+    finally {
+        hideSpinner(spinner);
+    }
 }
 
 
-// Llamar a ambas funciones cuando la página se carga
+
 window.onload = async function () {
+
     const spinner = showSpinner(`Cargando...`);
-    obtenerDatos();
-    verificarAutenticacion();
-    await listarSectoresFilter();
-    await listarFechasFilter();
-    await cargarModalidadesFilter();
-    hideSpinner(spinner);
+    try {
+        verificarAutenticacion();
+        await listarSectoresFilter();
+        await listarFechasFilter();
+        await cargarModalidadesFilter();
+
+        // Verificar si hay un parámetro en la URL al cargar la página
+        const queryParams = new URLSearchParams(window.location.search);
+        const sectorParam = queryParams.get('sector');
+        const modalidadParam = queryParams.get('modalidad');
+
+        if (modalidadParam) {
+            obtenerDatos(`?modalidad=${decodeURIComponent(modalidadParam)}`);
+            return;
+        }
+
+        if (sectorParam) {
+            listarOfertasPorSector(decodeURIComponent(sectorParam));
+            return;
+        }
+
+        obtenerDatos();
+
+    } catch (error) {
+        console.log(error)
+    }
+    finally {
+        hideSpinner(spinner)
+    }
 };
 
-// Modifica la función cargarModalidadesFilter
 async function cargarModalidadesFilter() {
     try {
         const response = await fetch(`${URL}api/ofertas/modalidades`);
@@ -240,6 +240,9 @@ async function cargarModalidadesFilter() {
             li.addEventListener('click', function () {
                 const modalidadSeleccionada = this.dataset.modalidad;
                 obtenerDatos(`?modalidad=${modalidadSeleccionada}`);
+
+                // Cambiar la URL sin recargar la página
+                cambiarURLConFiltro('modalidad', modalidadSeleccionada);
             });
 
             ulModalidadFilter.appendChild(li);
@@ -261,7 +264,6 @@ async function obtenerFechasDeOfertas() {
 
 function contarOfertasEnRango(fechas, inicio, fin) {
     return fechas.filter(fecha => {
-        // Comparar solo la fecha (ignorar la hora)
         return fecha.toISOString().split('T')[0] === inicio.toISOString().split('T')[0];
     }).length;
 }
@@ -305,7 +307,6 @@ async function listarFechasFilter() {
     }
 }
 
-
 async function listarSectoresFilter() {
     try {
         const response = await fetch(URL + 'api/ofertas/sectores');
@@ -334,11 +335,35 @@ async function listarSectoresFilter() {
     }
 }
 
-function listarOfertasPorSector(sector) {
-    console.log('este es el sector:' + sector)
+async function listarOfertasPorSector(sector) {
+
+    const spinner = showSpinner('Realizando busqueda...');
+
+    try {
+        const response = await fetch(`http://localhost:8080/api/ofertas?sector=${sector}`);
+
+        if (!response.ok) {
+            console.log('Sin ofertas para el sector');
+        }
+
+        const data = await response.json();
+
+        limpiarDivs();
+
+        data.ofertas.forEach(oferta => {
+            construirTarjeta(oferta);
+        });
+
+        // Cambiar la URL sin recargar la página
+        cambiarURLConFiltro('sector', sector);
+
+    } catch (error) {
+        console.log(error);
+    }
+    finally {
+        hideSpinner(spinner);
+    }
 }
-
-
 
 
 document.getElementById('searchForm').addEventListener('submit', async (event) => {
@@ -387,6 +412,11 @@ function mostrarMensajeNoResultados(termino) {
     contenedorResultados.appendChild(mensajeElement);
 }
 
+
+function cambiarURLConFiltro(parametro, valor) {
+    const nuevaURL = `${window.location.origin}${window.location.pathname}?${parametro}=${encodeURIComponent(valor)}`;
+    history.pushState({ [parametro]: valor }, '', nuevaURL);
+}
 
 
 
