@@ -1,6 +1,6 @@
 
 let USER_DATA = '';
-const URL_PUBLICAR_OFERTA = 'https://service-job-node.onrender.com/api/ofertas/';
+const URL_PUBLICAR_OFERTA = 'https://backjob-production.up.railway.app/api/ofertas/';
 
 
 const boxMessageRequest = document.querySelector('#msg-inform-request');
@@ -26,7 +26,7 @@ async function obtenerInformacionUsuario() {
 
         const { uid } = parseJwt(token);
 
-        const response = await fetch(`https://service-job-node.onrender.com/api/usuarios/${uid}`, {
+        const response = await fetch(`https://backjob-production.up.railway.app/api/usuarios/${uid}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
