@@ -57,7 +57,7 @@
     font-weight: 600;
     font-size: 14px;
     line-height: 20px;
-    color: rgb(0, 0, 24);
+    /* color: rgb(0, 0, 24); */
     margin: 0px 3px 0px 0px;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -68,7 +68,7 @@
     font-weight: 600;
     font-size: 12px;
     line-height: 16px;
-    color: rgba(0, 0, 24, 0.6);
+    /* color: rgba(0, 0, 24, 0.6); */
 }
 
 .card-title {
@@ -78,7 +78,7 @@
     font-size: 16px;
     line-height: 20px;
     transition: all 0.3s ease-in-out 0s;
-    color: rgb(88, 89, 146);
+    /* color: rgb(88, 89, 146); */
     margin-bottom: 0px;
 }
 
@@ -86,7 +86,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
-    color: rgb(34, 43, 69);
+    /* color: rgb(34, 43, 69); */
     display: -webkit-box;
     -webkit-line-clamp: 3;
     /* Número de líneas que deseas mostrar */
@@ -95,6 +95,7 @@
 }
 
 .card {
+    
     border-left: 5px solid #ffa171;
     transition: all 0.1s linear;
     opacity: .8;
