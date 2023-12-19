@@ -340,7 +340,7 @@ async function listarOfertasPorSector(sector) {
     const spinner = showSpinner('Realizando busqueda...');
 
     try {
-        const response = await fetch(`http://localhost:8080/api/ofertas?sector=${sector}`);
+        const response = await fetch(`${URL}api/ofertas?sector=${sector}`);
 
         if (!response.ok) {
             console.log('Sin ofertas para el sector');
