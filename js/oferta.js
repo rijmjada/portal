@@ -102,6 +102,7 @@ function obtenerDataForm() {
         descripcion: document.querySelector('#descripcion').value,
         modalidad: document.querySelector('#selectModalidad').value,
         sector: document.querySelector('#selectSector').value,
+        jornada: document.querySelector('#tipojornada').value,
         salario: parseFloat(salario.replace(',', '.')) // Convertir el salario a un número antes de devolverlo
     };
 }
