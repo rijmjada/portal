@@ -2,7 +2,7 @@
 
 let USER_UID = '';
 let USER_DATA = '';
-let URL_CARGAR_IMG = 'https://service-job-node.onrender.com/api/upload/imagen/';
+let URL_CARGAR_IMG = 'https://backjob-production.up.railway.app/api/upload/imagen/';
 
 
 async function obtenerInformacionUsuario() {
@@ -12,7 +12,7 @@ async function obtenerInformacionUsuario() {
 
         const { uid } = parseJwt(token);
 
-        const response = await fetch(`https://service-job-node.onrender.com/api/usuarios/${uid}`, {
+        const response = await fetch(`https://backjob-production.up.railway.app/api/usuarios/${uid}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
