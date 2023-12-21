@@ -1,5 +1,4 @@
-import { showSpinner, hideSpinner } from './spinner.js';
-const URL = 'https://service-job-node.onrender.com/';
+const URL = 'https://backjob-production.up.railway.app/';
 
 let USER_DATA = '';
 
@@ -159,9 +158,7 @@ async function apiRequestObtenerDatosOferta(uid) {
 
 
 document.addEventListener('DOMContentLoaded', async function () {
-    const spinner = showSpinner(`Cargando...`);
     await obtenerInformacionUsuario();
-    hideSpinner(spinner)
 });
 
 
