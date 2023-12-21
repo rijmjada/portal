@@ -3,6 +3,89 @@ import { showSpinner, hideSpinner } from './spinner.js';
 
 import URL from './config.js';
 
+// Nuevas constantes para la paginación
+let paginaActual = 1;
+const cardsPorPagina = 8;
+
+function actualizarPaginacion(totalItems) {
+    const totalPages = Math.ceil(totalItems / cardsPorPagina);
+    const paginationContainer = document.querySelector('.pagination');
+
+    // Limpia la paginación antes de actualizarla
+    paginationContainer.innerHTML = '';
+
+    // Botón "Anterior"
+    const prevButton = document.createElement('li');
+    prevButton.className = 'page-item';
+    prevButton.innerHTML = `<a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>`;
+    prevButton.addEventListener('click', () => cambiarPagina(paginaActual - 1));
+    paginationContainer.appendChild(prevButton);
+
+    // Agrega los números de página
+    for (let i = 1; i <= totalPages; i++) {
+        const pageButton = document.createElement('li');
+        pageButton.className = 'page-item';
+        pageButton.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+        pageButton.addEventListener('click', () => cambiarPagina(i));
+
+        // Resalta la página actual
+        if (i === paginaActual) {
+            pageButton.classList.add('active'); // Agrega la clase 'active' para resaltar
+        }
+
+        paginationContainer.appendChild(pageButton);
+    }
+
+    // Botón "Siguiente"
+    const nextButton = document.createElement('li');
+    nextButton.className = 'page-item';
+    nextButton.innerHTML = `<a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>`;
+    nextButton.addEventListener('click', () => cambiarPagina(paginaActual + 1));
+    paginationContainer.appendChild(nextButton);
+}
+// Agrega esta función para cambiar la página
+function cambiarPagina(nuevaPagina) {
+    if (nuevaPagina < 1 || nuevaPagina > Math.ceil(totalItems / cardsPorPagina)) {
+        return;
+    }
+    paginaActual = nuevaPagina;
+    obtenerDatos(); // Llama a la función de obtención de datos con la nueva página
+}
+
+async function obtenerDatos(params) {
+
+    let apiUrl = `${URL}api/ofertas`;
+    const spinner = showSpinner('Realizando busqueda...');
+
+    if (typeof params === 'string' && params.trim() !== '') {
+        apiUrl += params;
+    }
+
+    limpiarDivs();
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data.total > 0) {
+            const listaOfertas = data.ofertas;
+            listaOfertas.forEach(oferta => {
+                construirTarjeta(oferta);
+            });
+        } else {
+            console.log('No hay ofertas disponibles.');
+        }
+    } catch (error) {
+        console.error('Error al obtener datos:', error);
+    }
+    finally {
+        hideSpinner(spinner);
+    }
+}
+
 function limpiarDivs() {
     const colGet1 = document.getElementById('col-get-1');
     const colGet2 = document.getElementById('col-get-2');
@@ -152,36 +235,6 @@ function cerrarSesion() {
     window.location.reload();
 }
 
-
-async function obtenerDatos(params) {
-
-    let apiUrl = `${URL}api/ofertas`;
-    const spinner = showSpinner('Realizando busqueda...');
-
-    if (typeof params === 'string' && params.trim() !== '') {
-        apiUrl += params;
-    }
-
-    limpiarDivs();
-    try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-
-        if (data.total > 0) {
-            const ofertas = data.ofertas;
-            ofertas.forEach(oferta => {
-                construirTarjeta(oferta);
-            });
-        } else {
-            console.log('No hay ofertas disponibles.');
-        }
-    } catch (error) {
-        console.error('Error al obtener datos:', error);
-    }
-    finally {
-        hideSpinner(spinner);
-    }
-}
 
 
 

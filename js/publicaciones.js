@@ -1,5 +1,5 @@
 let USER_DATA = '';
-const URL = 'https://service-job-node.onrender.com/';
+const URL = 'https://backjob-production.up.railway.app/';
 
 const boxMessageRequest = document.querySelector('#msg-inform-request');
 const textMessageReq = document.querySelector('#msg-inform-p');
@@ -82,20 +82,81 @@ async function obtenerInformacionUsuario() {
     }
 }
 
-function listarPublicaciones(publicaciones) {
+// Variables globales para el control de la paginación
+let paginaActual = 1;
+const cardsPorPagina = 6;
 
-    if (publicaciones.length > 0) {
-        try {
-            publicaciones.forEach(async uid => {
-                const data = await apiRequestObtenerDatosOferta(uid);
-                if (data) construirTarjeta(data);
-            });
-        } catch (error) {
-            console.log(error)
+function listarPublicaciones(publicaciones) {
+    // Calcula el índice de inicio y fin para la página actual
+    const indiceDeInicio = (paginaActual - 1) * cardsPorPagina;
+    const indiceFinal = indiceDeInicio + cardsPorPagina;
+
+    // Filtra las publicaciones para mostrar solo las de la página actual
+    const listaPublicaciones = publicaciones.slice(indiceDeInicio, indiceFinal);
+
+    limpiarContenido();
+
+    // Construye las tarjetas solo para las publicaciones de la página actual
+    listaPublicaciones.forEach(async (uid) => {
+        const data = await apiRequestObtenerDatosOferta(uid);
+        if (data) construirTarjeta(data);
+    });
+
+    // Actualiza la paginación
+    actualizarPaginacion(publicaciones.length);
+}
+
+function limpiarContenido() {
+    // Limpia el contenedor antes de agregar nuevas tarjetas
+    const cardsPostulaciones = document.getElementById('cardsPostulaciones');
+    cardsPostulaciones.innerHTML = '';
+}
+
+function actualizarPaginacion(totalItems) {
+    const totalPages = Math.ceil(totalItems / cardsPorPagina);
+    const paginationContainer = document.querySelector('.pagination');
+
+    // Limpia la paginación antes de actualizarla
+    paginationContainer.innerHTML = '';
+
+    // Botón "Anterior"
+    const prevButton = document.createElement('li');
+    prevButton.className = 'page-item';
+    prevButton.innerHTML = `<a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>`;
+    prevButton.addEventListener('click', () => cambiarPagina(paginaActual - 1));
+    paginationContainer.appendChild(prevButton);
+
+    // Agrega los números de página
+    for (let i = 1; i <= totalPages; i++) {
+        const pageButton = document.createElement('li');
+        pageButton.className = 'page-item';
+        pageButton.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+        pageButton.addEventListener('click', () => cambiarPagina(i));
+        paginationContainer.appendChild(pageButton);
+        // Resalta la página actual
+        if (i === paginaActual) {
+            pageButton.classList.add('active'); // Agrega la clase 'active' para resaltar
         }
+
+        paginationContainer.appendChild(pageButton);
     }
-    else {
-        sendMessageRequestToUserClient('No registras publicaciones', false)
+
+    // Botón "Siguiente"
+    const nextButton = document.createElement('li');
+    nextButton.className = 'page-item';
+    nextButton.innerHTML = `<a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>`;
+    nextButton.addEventListener('click', () => cambiarPagina(paginaActual + 1));
+    paginationContainer.appendChild(nextButton);
+}
+
+function cambiarPagina(newPage) {
+    if (newPage >= 1 && newPage <= Math.ceil(USER_DATA.ofertasPublicadas.length / cardsPorPagina)) {
+        paginaActual = newPage;
+        listarPublicaciones(USER_DATA.ofertasPublicadas);
     }
 }
 
@@ -141,22 +202,21 @@ function construirTarjeta(oferta) {
 
 async function apiRequestObtenerDatosOferta(uid) {
 
+    const spinner = showSpinner('Cargando...');
     const endpoint = `${URL}api/ofertas/${uid}`;
-
+    
     try {
         const respuesta = await fetch(endpoint);
 
         if (!respuesta.ok) {
             throw new Error(`Error al obtener la oferta. Código de estado: ${respuesta.status}`);
         }
-
-        const oferta = await respuesta.json();
-
-        // Aquí puedes trabajar con la respuesta según tus necesidades
-        return oferta;
-
+        return await respuesta.json();
     } catch (error) {
         console.error("Error al realizar la petición:", error.message);
+    }
+    finally {
+        hideSpinner(spinner)
     }
 }
 
