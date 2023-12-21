@@ -3,6 +3,10 @@ const URL = 'https://backjob-production.up.railway.app/'
 let OFERTA = '';
 let UID_OFERTA = '';
 
+
+const boxMessageRequest = document.querySelector('#msg-inform-request');
+const textMessageReq = document.querySelector('#msg-inform-p');
+
 async function obtenerDataPublicacion(uid) {
     const url = `${URL}api/ofertas/${uid}`
     try {
@@ -80,7 +84,7 @@ async function eliminarOferta() {
     } catch (error) {
         sendMessageRequestToUserClient(error.json, true);
     }
-    finally{
+    finally {
         hideSpinner(spinner);
     }
 }
@@ -105,7 +109,8 @@ document.querySelector('#ver-postulantes').addEventListener('click', async () =>
         }
     }
     else {
-        sendMessageRequestToUserClient('No se registraron postulantes para esta oferta', true);
+        boxMessageRequest.classList.toggle('d-none');
+        textMessageReq.textContent = '* No se registraron postulantes';
     }
 });
 
@@ -185,8 +190,6 @@ function hideSpinner(spinner) {
     }, 500);
 }
 
-const boxMessageRequest = document.querySelector('#msg-inform-request');
-const textMessageReq = document.querySelector('#msg-inform-p');
 
 function sendMessageRequestToUserClient(message, errors) {
 
@@ -205,6 +208,6 @@ function sendMessageRequestToUserClient(message, errors) {
 }
 
 
-document.querySelector('#goHome').addEventListener('click', ()=> {
+document.querySelector('#goHome').addEventListener('click', () => {
     window.location.href = '../index.html';
 });

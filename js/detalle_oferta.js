@@ -212,6 +212,8 @@ function cargarDatosPublicacion(data) {
     document.querySelector('#modalidad').textContent = data.modalidad;
     document.querySelector('#salario').textContent = '$' + data.salario;
     document.querySelector('#sector').textContent = data.sector;
+    document.querySelector('#jornada').textContent = data.jornada;
+
 }
 
 function formatearFecha(fecha) {
