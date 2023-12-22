@@ -3,58 +3,58 @@ import { showSpinner, hideSpinner } from './spinner.js';
 
 import URL from './config.js';
 
-// Nuevas constantes para la paginación
-let paginaActual = 1;
-const cardsPorPagina = 8;
+// // Nuevas constantes para la paginación
+// let paginaActual = 1;
+// const cardsPorPagina = 8;
 
-function actualizarPaginacion(totalItems) {
-    const totalPages = Math.ceil(totalItems / cardsPorPagina);
-    const paginationContainer = document.querySelector('.pagination');
+// function actualizarPaginacion(totalItems) {
+//     const totalPages = Math.ceil(totalItems / cardsPorPagina);
+//     const paginationContainer = document.querySelector('.pagination');
 
-    // Limpia la paginación antes de actualizarla
-    paginationContainer.innerHTML = '';
+//     // Limpia la paginación antes de actualizarla
+//     paginationContainer.innerHTML = '';
 
-    // Botón "Anterior"
-    const prevButton = document.createElement('li');
-    prevButton.className = 'page-item';
-    prevButton.innerHTML = `<a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>`;
-    prevButton.addEventListener('click', () => cambiarPagina(paginaActual - 1));
-    paginationContainer.appendChild(prevButton);
+//     // Botón "Anterior"
+//     const prevButton = document.createElement('li');
+//     prevButton.className = 'page-item';
+//     prevButton.innerHTML = `<a class="page-link" href="#" aria-label="Previous">
+//                                 <span aria-hidden="true">&laquo;</span>
+//                             </a>`;
+//     prevButton.addEventListener('click', () => cambiarPagina(paginaActual - 1));
+//     paginationContainer.appendChild(prevButton);
 
-    // Agrega los números de página
-    for (let i = 1; i <= totalPages; i++) {
-        const pageButton = document.createElement('li');
-        pageButton.className = 'page-item';
-        pageButton.innerHTML = `<a class="page-link" href="#">${i}</a>`;
-        pageButton.addEventListener('click', () => cambiarPagina(i));
+//     // Agrega los números de página
+//     for (let i = 1; i <= totalPages; i++) {
+//         const pageButton = document.createElement('li');
+//         pageButton.className = 'page-item';
+//         pageButton.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+//         pageButton.addEventListener('click', () => cambiarPagina(i));
 
-        // Resalta la página actual
-        if (i === paginaActual) {
-            pageButton.classList.add('active'); // Agrega la clase 'active' para resaltar
-        }
+//         // Resalta la página actual
+//         if (i === paginaActual) {
+//             pageButton.classList.add('active'); // Agrega la clase 'active' para resaltar
+//         }
 
-        paginationContainer.appendChild(pageButton);
-    }
+//         paginationContainer.appendChild(pageButton);
+//     }
 
-    // Botón "Siguiente"
-    const nextButton = document.createElement('li');
-    nextButton.className = 'page-item';
-    nextButton.innerHTML = `<a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>`;
-    nextButton.addEventListener('click', () => cambiarPagina(paginaActual + 1));
-    paginationContainer.appendChild(nextButton);
-}
-// Agrega esta función para cambiar la página
-function cambiarPagina(nuevaPagina) {
-    if (nuevaPagina < 1 || nuevaPagina > Math.ceil(totalItems / cardsPorPagina)) {
-        return;
-    }
-    paginaActual = nuevaPagina;
-    obtenerDatos(); // Llama a la función de obtención de datos con la nueva página
-}
+//     // Botón "Siguiente"
+//     const nextButton = document.createElement('li');
+//     nextButton.className = 'page-item';
+//     nextButton.innerHTML = `<a class="page-link" href="#" aria-label="Next">
+//                                 <span aria-hidden="true">&raquo;</span>
+//                             </a>`;
+//     nextButton.addEventListener('click', () => cambiarPagina(paginaActual + 1));
+//     paginationContainer.appendChild(nextButton);
+// }
+// // Agrega esta función para cambiar la página
+// function cambiarPagina(nuevaPagina) {
+//     if (nuevaPagina < 1 || nuevaPagina > Math.ceil(totalItems / cardsPorPagina)) {
+//         return;
+//     }
+//     paginaActual = nuevaPagina;
+//     obtenerDatos(); // Llama a la función de obtención de datos con la nueva página
+// }
 
 async function obtenerDatos(params) {
 
@@ -244,7 +244,7 @@ window.onload = async function () {
     try {
         verificarAutenticacion();
         await listarSectoresFilter();
-        await listarFechasFilter();
+        await obtenerFechasDeOfertas();
         await cargarModalidadesFilter();
 
         // Verificar si hay un parámetro en la URL al cargar la página
@@ -308,12 +308,59 @@ async function cargarModalidadesFilter() {
 async function obtenerFechasDeOfertas() {
     try {
         const response = await fetch(`${URL}api/ofertas/fechas`);
-        return await response.json();
+        let fechas = await response.json();
+        // Categorías
+        let categorias = {
+            hoy: 0,
+            "48hs": 0,
+            "72hs": 0,
+            "ultima semana": 0,
+            "hace 15 dias": 0,
+            "ultimos mes": 0,
+            "mas de un mes": 0
+        };
+
+        // Fecha actual
+        let ahora = new Date();
+
+        fechas.forEach(fecha => {
+            let diff = Math.abs(new Date(fecha) - ahora) / 36e5; // Diferencia en horas
+
+            if (diff <= 24) categorias.hoy++;
+            else if (diff <= 48) categorias["48hs"]++;
+            else if (diff <= 72) categorias["72hs"]++;
+            else if (diff <= 168) categorias["ultima semana"]++;
+            else if (diff <= 360) categorias["hace 15 dias"]++;
+            else if (diff <= 720) categorias["ultimos mes"]++;
+            else categorias["mas de un mes"]++;
+        });
+
+        // Actualizar el DOM
+        const fechaFilterUl = document.querySelector('#ul-fecha-filter');
+
+        Object.entries(categorias).forEach(([categoria, cantidad]) => {
+            const li = document.createElement('li');
+            li.dataset.categoria = categoria.toLowerCase();
+            li.innerHTML = `
+                <div class="d-flex justify-content-between">
+                    <span>${categoria}</span>
+                    <span class="ms-2 opacity-75">(${cantidad})</span>
+                </div>
+            `;
+
+            li.addEventListener('click', function () {
+                const categoriaSeleccionada = this.dataset.categoria;
+                // Aquí puedes llamar a la función que necesites con la categoría seleccionada
+                // Por ejemplo: listarOfertasPorFecha(categoriaSeleccionada);
+            });
+            fechaFilterUl.appendChild(li);
+        });
     } catch (error) {
         console.error('Error al obtener las fechas desde el backend', error);
         throw error;
     }
 }
+
 
 function contarOfertasEnRango(fechas, inicio, fin) {
     return fechas.filter(fecha => {
